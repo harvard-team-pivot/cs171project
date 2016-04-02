@@ -8,7 +8,9 @@ To begin with we put together the group expectations document.  We discussed nee
 
 We had decided that slack would be our primary communication method and created a private channel.  A github repository was added to an existing organization.  To separate our data from our presentation we created a second branch for our web site.
 
-Following the [five design methodology](fds.design), team members began creating [sketches](link to sketches) for discussion. 
+** Design Sketches
+
+Following the [five design methodology](fds.design), team members began creating [sketches](link to sketches) for discussion.
 
 
 
@@ -18,8 +20,6 @@ TODO:
 Elevator Pitch
 
 Three minutes video of ^^^
-
-Design Sketches
 
 Find consensus in your team on which you think are the three most representative visualizations for your assigned field.
 
