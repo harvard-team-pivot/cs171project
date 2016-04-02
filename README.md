@@ -8,7 +8,8 @@ To begin with we put together the group expectations document.  We discussed nee
 
 We had decided that slack would be our primary communication method and created a private channel.  A github repository was added to an existing organization.  To separate our data from our presentation we created a second branch for our web site.
 
-Team members began creating sketches for discussion. 
+Following the [five design methodology](fds.design), team members began creating [sketches](link to sketches) for discussion. 
+
 
 
 
@@ -36,7 +37,7 @@ vis design
 - give an overview of important
 visualizations for your field
 - explain each technique
-- 
+-
 Create a sketch of your poster on a
 sheet of paper that represents your
 team’s selection of methods.(4 visualizations) Abstract
