@@ -12,6 +12,26 @@ We had decided that slack would be our primary communication method and created 
 
 Following the [five design methodology](fds.design), team members began creating [sketches](link to sketches) for discussion.
 
+Filtering ideas
+
+Map connected to stacked bar chart
+
+Selection or Filtering would highlight country
+
+ranking on bar chart of all countries
+
+Tooltips-lower priority
+
+Slider at bottom
+
+Chloropleth map based on total score of country
+
+Categorize
+
+Questions
+
+What's a given countries ability to trade?  With other countries?  Within region?  What direction is the country moving?
+
 
 
 
