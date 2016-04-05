@@ -32,15 +32,25 @@ Questions
 
 What's a given countries ability to trade?  With other countries?  Within region?  What direction is the country moving?
 
+Elevator Pitch created and uploaded.  Video deck was done in powerpoint.  A single visualizations for the deck was created in OmniGraffle
+depicting an overview of the steps involved in the logistics process.  Thinking of incorporating it into the final project as it could be
+color coded to components.  We'll call it a stretch goal.
 
 
+Screenflick was available to capture deck presentation with voiceover.  Uploaded it to youtube ->
+https://www.youtube.com/watch?v=GTpXQag4Y6M&feature=youtu.be
+
+
+Project plan iteration two included second generation sketches, interaction options and first draft of page functionality.
+A weekly project timeline was also inserted.
+
+Updated process book with todos for Poster Sessions and work breakdown scheduling requirements.
 
 TODO:
 
-Elevator Pitch
+Formalize timeline with feature level milestones
 
-https://www.youtube.com/watch?v=GTpXQag4Y6M&feature=youtu.be
-Three minutes video of ^^^
+More concise webpage layout/storytelling
 
 Find consensus in your team on which you think are the three most representative visualizations for your assigned field.
 
