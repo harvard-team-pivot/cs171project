@@ -48,7 +48,7 @@ Updated process book with todos for Poster Sessions and work breakdown schedulin
 
 Sketched out poster.  Wireframed poster.  Roughed out poster with a few images.
 
-Updated todo. 
+Updated todo.
 
 TODO:
 
@@ -71,3 +71,16 @@ visualizations for your field
 Formalize timeline with feature level milestones
 
 More concise webpage layout/storytelling
+
+1. Project re-design (iteration):
+
+After having finished the project plan (with tasks, goals, data, sketches) last week and being exposed to a number of different visualizations in the poster session, as well as having done the ‘expert evaluation’ in the studios, you should rethink your visualization and come up with a re-design of your planned approach.
+
+Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
+Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
+Project re-design:
+Use what you have learned about innovation in lecture to identify a weakness of your current design and propose an innovative solution (1 sketch)
+Use the (peer) feedback you have received so far and the knowledge from the poster session to re-design 1-2 existing visualizations in your project
+2. Implementation:
+
+If you haven’t done so, start implementing your project. If you are still working on your re-design, start first with data cleaning, data loading, general webpage setup,etc. In a week you already have to hand in a functional and working prototype! There is nothing to hand in this week for your implementation part!
