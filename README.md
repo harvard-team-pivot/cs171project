@@ -46,17 +46,16 @@ A weekly project timeline was also inserted.
 
 Updated process book with todos for Poster Sessions and work breakdown scheduling requirements.
 
+Sketched out poster.  Wireframed poster.  Roughed out poster with a few images.
+
+Updated todo. 
+
 TODO:
 
-Formalize timeline with feature level milestones
-
-More concise webpage layout/storytelling
-
-Find consensus in your team on which you think are the three most representative visualizations for your assigned field.
-
-Take all your printouts and get together
-in your expert groups and collect ideas
-about your topic area.
+Create your poster and use:
+- title and authors
+- proper alignment and whitespace (image caption)
+- storytelling principles
 
 1) Project-related Poster
 - explain your project idea in a
@@ -68,13 +67,7 @@ vis design
 - give an overview of important
 visualizations for your field
 - explain each technique
--
-Create a sketch of your poster on a
-sheet of paper that represents your
-team’s selection of methods.(4 visualizations) Abstract
-your printouts by wireframes
 
-Create your poster and use:
-- title and authors
-- proper alignment and whitespace (image caption)
-- storytelling principles
+Formalize timeline with feature level milestones
+
+More concise webpage layout/storytelling
