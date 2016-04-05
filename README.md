@@ -39,6 +39,7 @@ TODO:
 
 Elevator Pitch
 
+https://www.youtube.com/watch?v=GTpXQag4Y6M&feature=youtu.be
 Three minutes video of ^^^
 
 Find consensus in your team on which you think are the three most representative visualizations for your assigned field.
