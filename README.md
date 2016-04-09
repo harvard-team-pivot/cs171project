@@ -48,7 +48,7 @@ Updated process book with todos for Poster Sessions and work breakdown schedulin
 
 Sketched out poster.  Wireframed poster.  Roughed out poster with a few images.
 
-Presented [initial design](https://github.com/harvard-team-pivot/cs171project/blob/master/layout5thdraft.png) to expert evaluators.  My notes are [here](https://github.com/harvard-team-pivot/cs171project/blob/master/).  The tasks and their notes are [here](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit).  Will work on refactoring based on their feedback.
+Presented [initial design](https://github.com/harvard-team-pivot/cs171project/blob/master/layout5thdraft.png) to expert evaluators.  My notes are [here](https://github.com/harvard-team-pivot/cs171project/blob/master/usability%20notes%205th%20draft.rtf).  The tasks and their notes are [here](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit).  Will work on refactoring based on their feedback.
 
 Updated todo.
 
