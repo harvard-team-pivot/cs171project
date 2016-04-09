@@ -79,6 +79,9 @@ More concise webpage layout/storytelling
 After having finished the project plan (with tasks, goals, data, sketches) last week and being exposed to a number of different visualizations in the poster session, as well as having done the ‘expert evaluation’ in the studios, you should rethink your visualization and come up with a re-design of your planned approach.
 
 Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
+
+Stack rack submissions from experts.
+
 Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
 Project re-design:
 Use what you have learned about innovation in lecture to identify a weakness of your current design and propose an innovative solution (1 sketch)
