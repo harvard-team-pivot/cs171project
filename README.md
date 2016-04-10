@@ -50,6 +50,8 @@ Sketched out poster.  Wireframed poster.  Roughed out poster with a few images.
 
 Presented [initial design](https://github.com/harvard-team-pivot/cs171project/blob/master/layout5thdraft.png) to expert evaluators.  My notes are [here](https://github.com/harvard-team-pivot/cs171project/blob/master/usability%20notes%205th%20draft.rtf).  The tasks and their notes are [here](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit).  Will work on refactoring based on their feedback.
 
+Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR9ygWP7djfWg1bzdEcvD6AFQspwPc3gqs8fw/edit)
+
 Updated todo.
 
 TODO:
@@ -83,6 +85,8 @@ Include the expert evaluation from the studio in your submission. Please submit 
 Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit)
 
 Stack rack submissions from experts.
+fisheye
+color code indicators to match stacked bar char
 
 Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
 Project re-design:
