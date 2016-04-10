@@ -80,6 +80,8 @@ After having finished the project plan (with tasks, goals, data, sketches) last 
 
 Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
 
+Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit)
+
 Stack rack submissions from experts.
 
 Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
