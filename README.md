@@ -92,6 +92,8 @@ Data was exported from excel as csv.  There was one file exported for each year.
 
 Working with four datasets doesn't make much sense to me.  The 2007 dataset is missing some summary data. I was going to add that, but being the lean developer that I am, I'll ignore it for now.  We'll see whether that decision comes around and bites me in the arse. I'll put the atrributes form all the datasets into one object and add a new attribute for the year.  While reviewing the data in the chrome javascript console, I identified a discrepancy year over year in the number of records.  Seems to be more, or fewer, countries responding to the survey that provides the data.  Not an issue now, but will add a todo for dealing during viz.  Closed excel.
 
+Added them all to a single dataset for the time being.  Pushed to github with the *allData* array available for prototyping.  Need to loop through and add year now.
+
 Updated todo.
 
 # TODO:
