@@ -21,7 +21,7 @@ var projection = d3.geo.equirectangular()
 var path = d3.geo.path()
     .projection(projection);
 
-var africa, malariaData = {};
+var raw2007, raw2010, raw2012, raw2014, allData= {};
 
 var aspect = "At_risk";
 
@@ -41,16 +41,29 @@ queue()
     .defer(d3.csv, "data/International_LPI_from_2010.csv")
     .defer(d3.csv, "data/International_LPI_from_2012.csv")
     .defer(d3.csv, "data/International_LPI_from_2014.csv")
-    .await(function (error, raw2007, raw2010,raw2012,raw2014) {
+    .await(function (error, raw2007csv, raw2010csv,raw2012csv,raw2014csv) {
 
-        //console.log(raw2007);
-        //console.log(raw2012);
-        //console.log(raw2012);
-        //console.log(raw2014);
+        //console.log(raw2007csv);
+        //console.log(raw2012csv);
+        //console.log(raw2012csv);
+        //console.log(raw2014csv);
 
         // --> PROCESS DATA
 
-        malariaData = malariaDataCsv;
+        //malariaData = malariaDataCsv;
+        raw2007 = raw2007csv;
+        raw2010 = raw2010csv;
+        raw2012 = raw2012csv;
+        raw2014 = raw2014csv;
+
+        //let's get it all in one place
+        allData = raw2007csv + raw2010csv + raw2012csv + raw2014csv;
+        console.log(raw2014csv);
+
+        //need to process data
+        for (var i = 0; i < malariaData.length; i++)
+            allData = something;
+
         // TODO filtered data was removing mediterranean countries
         //malariaData = malariaDataCsv.filter(function (d) {
         //    return (d.WHO_region === "African");
