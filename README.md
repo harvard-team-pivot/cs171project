@@ -54,9 +54,29 @@ Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR
 
 ## Story Book
 
+NEEDS Work
+
+## Project re-design
+
+Based on the expert evaluators feedback, we have re-thought our visualization.  All of their suggestions were valuable.  The latest [iteration]() of our design has incorporated most of their suggestions.  The stacked bar chart has not been completely implemented in the sketch.  It will be included in the actual web page.
+
+Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
+
+Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit)
+
+Stack rank submissions from experts.
+fisheye
+color code indicators to match stacked bar char
+view controller pub/sub
+
+Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
+Project re-design:
+Use what you have learned about innovation in lecture to identify a weakness of your current design and propose an innovative solution (1 sketch)
+Use the (peer) feedback you have received so far and the knowledge from the poster session to re-design 1-2 existing visualizations in your project
+2. Implementation:
 
 
-## DATA
+## Data
 
 Obtained data from
 
@@ -92,25 +112,8 @@ Formalize timeline with feature level milestones
 
 More concise webpage layout/storytelling
 
-1. Project re-design (iteration):
 
-After having finished the project plan (with tasks, goals, data, sketches) last week and being exposed to a number of different visualizations in the poster session, as well as having done the ‘expert evaluation’ in the studios, you should rethink your visualization and come up with a re-design of your planned approach.
-
-Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
-
-Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit)
-
-Stack rank submissions from experts.
-fisheye
-color code indicators to match stacked bar char
-view controller pub/sub
-
-Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
-Project re-design:
-Use what you have learned about innovation in lecture to identify a weakness of your current design and propose an innovative solution (1 sketch)
-Use the (peer) feedback you have received so far and the knowledge from the poster session to re-design 1-2 existing visualizations in your project
-2. Implementation:
 
 If you haven’t done so, start implementing your project. If you are still working on your re-design, start first with data cleaning, data loading, general webpage setup,etc. In a week you already have to hand in a functional and working prototype! There is nothing to hand in this week for your implementation part!
 
-Data cleanup array 
+Data cleanup array
