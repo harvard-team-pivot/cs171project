@@ -61,6 +61,8 @@ Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR
 
 NEEDS Work
 
+### Innovation
+
 # Evaluation
 
 Based on the expert evaluators feedback, we have re-thought our visualization.  All of their suggestions were valuable.  We stack ranked their experts submissions and worked from there.  A lot of their observation reflected an overly complex and cluttered design.  These had been areas where we weren't sure which components should display detail levels.  The expert assessment helped us clarify which dataset were appropiate.  The latest [iteration](https://github.com/harvard-team-pivot/cs171project/blob/master/drafts/layout12thdraft.png) of our design has incorporated most of their suggestions.  The stacked bar chart has not been completely implemented in the sketch.  It will be included in the actual web page.
@@ -109,6 +111,18 @@ visualizations for your field
 Formalize timeline with feature level milestones
 
 More concise webpage layout/storytelling
+
+Innovation
+
+  Why?
+  • increase interestingness
+  • make your Vis unique and memorable
+  • increase empathy for your topic
+  How?
+  • Rethink your data
+  • Rethink encodings
+  • add storytelling elements
+  • Do not limit effectiveness.
 
 Data cleanup array
 
