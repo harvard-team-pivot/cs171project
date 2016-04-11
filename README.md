@@ -1,5 +1,6 @@
 # cs171project
 
+
 Final Project collaboration site
 
 This will be the process book location for our project
@@ -8,7 +9,11 @@ To begin with we put together the group expectations document.  We discussed nee
 
 We had decided that slack would be our primary communication method and created a private channel.  A github repository was added to an existing organization.  To separate our data from our presentation we created a second branch for our web site.
 
-**Design Sketches**
+## Target
+
+## Design
+
+### Sketches
 
 Following the [five design methodology](fds.design), team members began creating [sketches](link to sketches) for discussion.
 
@@ -56,37 +61,30 @@ Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR
 
 NEEDS Work
 
-## Project re-design
+# Evaluation
 
-Based on the expert evaluators feedback, we have re-thought our visualization.  All of their suggestions were valuable.  The latest [iteration]() of our design has incorporated most of their suggestions.  The stacked bar chart has not been completely implemented in the sketch.  It will be included in the actual web page.
-
-Include the expert evaluation from the studio in your submission. Please submit only the evaluation where you gave feedback on another project! (This should be an extra document and not inside your process book)
+Based on the expert evaluators feedback, we have re-thought our visualization.  All of their suggestions were valuable.  We stack ranked their experts submissions and worked from there.  A lot of their observation reflected an overly complex and cluttered design.  These had been areas where we weren't sure which components should display detail levels.  The expert assessment helped us clarify which dataset were appropiate.  The latest [iteration](https://github.com/harvard-team-pivot/cs171project/blob/master/drafts/layout12thdraft.png) of our design has incorporated most of their suggestions.  The stacked bar chart has not been completely implemented in the sketch.  It will be included in the actual web page.
 
 Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9yZhS4HqxqGNCIg6ohysef5Xcc/edit)
-
-Stack rank submissions from experts.
-fisheye
-color code indicators to match stacked bar char
-view controller pub/sub
 
 Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
 Project re-design:
 Use what you have learned about innovation in lecture to identify a weakness of your current design and propose an innovative solution (1 sketch)
 Use the (peer) feedback you have received so far and the knowledge from the poster session to re-design 1-2 existing visualizations in your project
-2. Implementation:
+
+
+# Implementation:
 
 
 ## Data
 
-Obtained data from
+Obtained data from the [World Bank](http://lpi.worldbank.org/) logistics performance index.
 
 ### Data cleaning.
 
 Data was exported from excel as csv.  There was one file exported for each year.  Headers were multi-line.  Editing csv to reflect accurate column headers.  Actually saving the data in the right folder, that helps.  Second csv header set updated since data changed from 2007-2010.  The data change was not due to collection of new information, but the addition of summary data.  Saved the other data files to the same location after changing the headers.  Got up too early, typing on a plane to DC (First class baby.)  Found some interesting functionality in WebStorm where uncomment key combination in the middle of a commented block doesn't quite work.  Data is all in JSON using queue, defer and d3.json.
 
 Working with four datasets doesn't make much sense to me.  The 2007 dataset is missing some summary data. I was going to add that, but being the lean developer that I am, I'll ignore it for now.  We'll see whether that decision comes around and bites me in the arse. I'll put the atrributes form all the datasets into one object and add a new attribute for the year.  While reviewing the data in the chrome javascript console, I identified a discrepancy year over year in the number of records.  Seems to be more, or fewer, countries responding to the survey that provides the data.  Not an issue now, but will add a todo for dealing during viz.  Closed excel.
-
-
 
 Updated todo.
 
@@ -112,8 +110,8 @@ Formalize timeline with feature level milestones
 
 More concise webpage layout/storytelling
 
-
-
-If you haven’t done so, start implementing your project. If you are still working on your re-design, start first with data cleaning, data loading, general webpage setup,etc. In a week you already have to hand in a functional and working prototype! There is nothing to hand in this week for your implementation part!
-
 Data cleanup array
+
+fisheye
+color code indicators to match stacked bar char
+view controller pub/sub
