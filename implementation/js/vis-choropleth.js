@@ -21,7 +21,8 @@ var projection = d3.geo.equirectangular()
 var path = d3.geo.path()
     .projection(projection);
 
-var raw2007, raw2010, raw2012, raw2014, allData= {};
+var raw2007, raw2010, raw2012, raw2014 = {};
+var allData = [];
 
 var aspect = "At_risk";
 
@@ -57,8 +58,11 @@ queue()
         raw2014 = raw2014csv;
 
         //let's get it all in one place
-        allData = raw2007csv + raw2010csv + raw2012csv + raw2014csv;
-        console.log(raw2014csv);
+        allData = allData.concat(raw2007csv);
+        allData = allData.concat(raw2010csv);
+        allData = allData.concat(raw2012csv);
+        allData = allData.concat(raw2014csv);
+        console.log(allData);
 
         //need to process data
         for (var i = 0; i < malariaData.length; i++)
