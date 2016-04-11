@@ -42,7 +42,7 @@ queue()
     .defer(d3.csv, "data/International_LPI_from_2010.csv")
     .defer(d3.csv, "data/International_LPI_from_2012.csv")
     .defer(d3.csv, "data/International_LPI_from_2014.csv")
-    .await(function (error, raw2007csv, raw2010csv,raw2012csv,raw2014csv) {
+    .await(function (error, raw2007csv, raw2010csv, raw2012csv, raw2014csv) {
 
         //console.log(raw2007csv);
         //console.log(raw2012csv);
@@ -51,22 +51,19 @@ queue()
 
         // --> PROCESS DATA
 
-        //malariaData = malariaDataCsv;
-        raw2007 = raw2007csv;
-        raw2010 = raw2010csv;
-        raw2012 = raw2012csv;
-        raw2014 = raw2014csv;
+        var dataYears = [raw2007csv,raw2010csv,raw2012csv,raw2014csv];
+        var years = [2007,2010,2012,2014];
+        //console.log(dataYears.length);
 
-        //let's get it all in one place
-        allData = allData.concat(raw2007csv);
-        allData = allData.concat(raw2010csv);
-        allData = allData.concat(raw2012csv);
-        allData = allData.concat(raw2014csv);
-        console.log(allData);
+        for (var i = 0; dataYears.length; i++) {
+            console.log(dataYears[i]);
+            dataYears[i].forEach(function (d) {
+                d.year = years[i]; // returns a Date
+            });
+            allData = allData.concat(dataYears[i]);
+        }
 
-        //need to process data
-        for (var i = 0; i < malariaData.length; i++)
-            allData = something;
+         console.log(allData);
 
         // TODO filtered data was removing mediterranean countries
         //malariaData = malariaDataCsv.filter(function (d) {
