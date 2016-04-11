@@ -94,7 +94,9 @@ Working with four datasets doesn't make much sense to me.  The 2007 dataset is m
 
 Updated todo.
 
-TODO:
+# TODO:
+
+TODO - Fill _target_ section ^^^ with youtube deck/video & project submission text
 
 Create your poster and use:
 - title and authors
