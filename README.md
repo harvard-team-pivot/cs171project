@@ -52,6 +52,18 @@ Presented [initial design](https://github.com/harvard-team-pivot/cs171project/bl
 
 Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR9ygWP7djfWg1bzdEcvD6AFQspwPc3gqs8fw/edit)
 
+## DATA
+
+Obtained data from
+
+### Data cleaning.
+
+Data was exported from excel as csv.  There was one file exported for each year.  Headers were multi-line.  Editing csv to reflect accurate column headers.  Actually saving the data in the right folder, that helps.  Second csv header set updated since data changed from 2007-2010.  The data change was not due to collection of new information, but the addition of summary data.  Saved the other data files to the same location after changing the headers.  Got up too early, typing on a plane to DC (First class baby.)  Found some interesting functionality in WebStorm where uncomment key combination in the middle of a commented block doesn't quite work.  Data is all in JSON using queue, defer and d3.json.
+
+Working with four datasets doesn't make much sense to me.  The 2007 dataset is missing some summary data. I was going to add that, but being the lean developer that I am, I'll ignore it for now.  We'll see whether that decision comes around and bites me in the arse. I'll put the atrributes form all the datasets into one object and add a new attribute for the year.
+
+
+
 Updated todo.
 
 TODO:
@@ -87,6 +99,7 @@ Team 4 evaluation [link](https://docs.google.com/document/d/1V30sgNuz1gvNCDq5v9y
 Stack rack submissions from experts.
 fisheye
 color code indicators to match stacked bar char
+view controller pub/sub
 
 Write an entry in your process book about the feedback you received in the expert evaluation and how it influences your project re-design.
 Project re-design:
