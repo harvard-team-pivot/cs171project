@@ -57,9 +57,13 @@ Presented [initial design](https://github.com/harvard-team-pivot/cs171project/bl
 
 Did other teams expert [evaluation](https://docs.google.com/document/d/15eI7KlfR9ygWP7djfWg1bzdEcvD6AFQspwPc3gqs8fw/edit)
 
-## Story Book
+## Story
 
 NEEDS Work
+
+### Story Boards
+
+### Interactions
 
 ### Innovation
 
