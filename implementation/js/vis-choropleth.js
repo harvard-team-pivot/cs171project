@@ -1,7 +1,9 @@
 // --> CREATE SVG DRAWING AREA
 var width = 1000,
     height = 800;
-formatPercent = d3.format(".0%"),
+    barWidth = width/3;
+    barHeight = height/3;
+    formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".1f");
 
 var barPadding = 5;
@@ -11,8 +13,8 @@ var svg = d3.select("#chart-area").append("svg")
     .attr("height", height);
 
 var svgBar = d3.select("#ranking-area").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", barWidth)
+    .attr("height", barHeight);
 
 var projection = d3.geo.mercator()
     .translate([width / 2, height / 2])
@@ -29,7 +31,7 @@ var path = d3.geo.path()
 
 var x = d3.scale.linear()
     .domain([0,5])
-    .range([0, width]);
+    .range([0, barWidth]);
 
 var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
@@ -201,10 +203,10 @@ function updateBarChart(dataset, year) {
         .attr("fill", "grey")
         .attr("y", function (d, i) {
             //console.log(d.id)
-            return (i * (width / chartData.length)) - barPadding;
+            return (i * (barWidth / chartData.length)) - barPadding;
         })
         .attr("x", barPadding)
-        .attr("height", height / chartData.length)
+        .attr("height", barHeight / chartData.length)
         .attr("width", function (d) {
             //console.log(d.Code);
             return x(d.CustomsScore);
