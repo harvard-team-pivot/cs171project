@@ -27,6 +27,10 @@ var projection = d3.geo.equirectangular()
 var path = d3.geo.path()
     .projection(projection);
 
+var x = d3.scale.linear()
+    .domain([0,5])
+    .range([0, width]);
+
 var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
 
@@ -41,6 +45,11 @@ var quantize = d3.scale.quantize()
 
 var malariaDataByCountryId = [];
 
+// Initialize tooltip
+var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
+    return "The " + d.Country + " is " + d.CustomsScore + " feet tall." ;
+});
+
 // Use the Queue.js library to read two files
 
 queue()
@@ -53,8 +62,8 @@ queue()
 
         // --> PROCESS DATA
 
-        var dataYears = [raw2007csv,raw2010csv,raw2012csv,raw2014csv];
-        var years = [2007,2010,2012,2014];
+        var dataYears = [raw2007csv, raw2010csv, raw2012csv, raw2014csv];
+        var years = [2007, 2010, 2012, 2014];
 
         for (var i = 0; i < dataYears.length; i++) {
             dataYears[i].forEach(function (d) {
@@ -85,7 +94,7 @@ function updateChoropleth(dataYears2014, world) {
     //console.log(aspect+"Score");
 
     quantize.domain(d3.extent(allData, function (d) {
-        return +d[aspect+"Score"]
+        return +d[aspect + "Score"]
     }));
 
     //legend
@@ -137,7 +146,7 @@ function updateChoropleth(dataYears2014, world) {
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
 
-        //console.log(dataYears2014[4]);
+    //console.log(dataYears2014[4]);
 
     var worldMap = svg.selectAll("path")
         .data(topojson.feature(world, world.objects.countries).features)
@@ -153,7 +162,7 @@ function updateChoropleth(dataYears2014, world) {
                     return "#ccc";
                 } else {
                     //console.log(quantize(findAspect(d.properties.adm0_a3_is, aspect)));
-                    return quantize(findAspect(dataYears2014, d.id, aspect+"Score"));
+                    return quantize(findAspect(dataYears2014, d.id, aspect + "Score"));
                 }
             }
         });
@@ -171,10 +180,14 @@ function findAspect(data, ID, aspect) {
 
 function updateBarChart(dataset, year) {
 
-    var chartData = dataset.filter(function(i){
+    var chartData = dataset.filter(function (i) {
         //alert ($(this).text());
         //return (i.building == $(this).text());
         return (i.Year == year);
+    });
+
+    chartData.sort( function(a, b){
+        return a.CustomsRank - b.CustomsRank;
     });
 
     //console.log(chartData);
@@ -183,16 +196,34 @@ function updateBarChart(dataset, year) {
         .data(chartData)
         .enter()
         .append("rect")
-        .attr("fill","grey")
-        .attr("y", function (d,i) {
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
+        .attr("fill", "grey")
+        .attr("y", function (d, i) {
             //console.log(d.id)
-            return (i * (width / chartData.length))- barPadding  ;
+            return (i * (width / chartData.length)) - barPadding;
         })
-        .attr("x",barPadding)
-        .attr("height", height / chartData.length )
+        .attr("x", barPadding)
+        .attr("height", height / chartData.length)
         .attr("width", function (d) {
             //console.log(d.Code);
-            return d.CustomsRank ;
+            return x(d.CustomsScore);
+        })
+        .append("text")
+        .attr("class", "bartext")
+        .attr("text-anchor", "end")
+        .attr("fill", "blue")
+        .text(function (d) {
+            return d.CustomsRank;
+        })
+        .append("p")
+        .attr("id", function (d) {
+            return d.Code;
+        })
+        .html(function (d) {
+            return "<h3>" + d.CustomsRank + "</h3><br>Height " + d.Country + "<br>City " + d.Rank + "<br>Country " + d.TimelinessRank + "<br>Floors " + d.TimelinessScore + "<br>Completed " + d.CustomsScore;
         });
+    // Invoke tooltip
+    svgBar.call(tip)
 
 }
