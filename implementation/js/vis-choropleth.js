@@ -2,7 +2,7 @@
 var width = 1000,
     height = 800;
     barWidth = width/3;
-    barHeight = height/3;
+    barHeight = 800;
     formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".1f");
 
@@ -188,6 +188,8 @@ function updateBarChart(dataset, year) {
         return (i.Year == year);
     });
 
+    console.log(chartData.length)
+
     chartData.sort( function(a, b){
         return a.CustomsRank - b.CustomsRank;
     });
@@ -203,13 +205,13 @@ function updateBarChart(dataset, year) {
         .attr("fill", "grey")
         .attr("y", function (d, i) {
             //console.log(d.id)
-            return (i * (barWidth / chartData.length)) - barPadding;
+            return (i * (barHeight / chartData.length)) + barPadding;
         })
         .attr("x", barPadding)
-        .attr("height", barHeight / chartData.length)
+        .attr("height", (barHeight / chartData.length) - 1 )
         .attr("width", function (d) {
             //console.log(d.Code);
-            return x(d.CustomsScore);
+            return x(d.CustomsScore) ;
         })
         .append("text")
         .attr("class", "bartext")
