@@ -1,8 +1,8 @@
 // --> CREATE SVG DRAWING AREA
-var width = 1000,
-    height = 800;
+var width = 500,
+    height = 400;
 formatPercent = d3.format(".0%"),
-    formatNumber = d3.format(".1f");
+    formatNumber = d3.format(".0f");
 
 var svg = d3.select("#chart-area").append("svg")
     .attr("width", width)
@@ -24,7 +24,7 @@ var path = d3.geo.path()
 var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
 
-var aspect = "Overall_LPI";
+var aspect = "At_risk";
 
 var quantize = d3.scale.quantize()
     //.domain([0, 100])
@@ -42,44 +42,68 @@ queue()
     .defer(d3.csv, "data/International_LPI_from_2010.csv")
     .defer(d3.csv, "data/International_LPI_from_2012.csv")
     .defer(d3.csv, "data/International_LPI_from_2014.csv")
-    .defer(d3.json, "topojson/world-50m.json")
-    .await(function (error, raw2007csv, raw2010csv, raw2012csv, raw2014csv, world) {
+    .await(function (error, raw2007csv, raw2010csv, raw2012csv, raw2014csv) {
+
+        //console.log(raw2007csv);
+        //console.log(raw2012csv);
+        //console.log(raw2012csv);
+        //console.log(raw2014csv);
 
         // --> PROCESS DATA
 
         var dataYears = [raw2007csv,raw2010csv,raw2012csv,raw2014csv];
         var years = [2007,2010,2012,2014];
+        //console.log(dataYears.length);
 
-        for (var i = 0; i < dataYears.length; i++) {
+        for (var i = 0; dataYears.length; i++) {
+            console.log(dataYears[i]);
             dataYears[i].forEach(function (d) {
-                d.Year = years[i]; // returns a Date
+                d.year = years[i]; // returns a Date
             });
             allData = allData.concat(dataYears[i]);
         }
 
-        var dataYears2014 = [];
+         console.log(allData);
 
-        for (var i = 0; i < dataYears[3].length; i++) {
-            dataYears2014[dataYears[3][i].ID] = dataYears[3][i];
-        }
+        // TODO filtered data was removing mediterranean countries
+        //malariaData = malariaDataCsv.filter(function (d) {
+        //    return (d.WHO_region === "African");
+        //});
+
+        //console.log(malariaData);
+
+        // Convert TopoJSON to GeoJSON (target object = 'states')
+        africa = topojson.feature(mapTopJson, mapTopJson.objects.collection).features;
+
+        //console.log(africa);
+
+        for (var i = 0; i < malariaData.length; i++)
+            malariaDataByCountryId[malariaData[i].Code] = malariaData[i];
+
+        //console.log(malariaDataByCountryId);
+
+        //console.log(findAspect("AGO","UN_population"));
+        //console.log(findAspect("NAM","At_risk"));
 
         // Update choropleth
-        updateChoropleth(dataYears2014, world);
+        updateChoropleth();
     });
 
 //d3.select("#ranking-type").on("change", updateChoropleth);
 
-function updateChoropleth(dataYears2014, world) {
+function updateChoropleth() {
 
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
 
-    console.log(aspect+"Score");
+    console.log(aspect);
 
-    quantize.domain(d3.extent(allData, function (d) {
-        return +d[aspect+"Score"]
+    quantize.domain(d3.extent(malariaData, function (d) {
+        return +d[aspect]
     }));
+
+    console.log(quantize(20));
 
     //legend
 
@@ -102,10 +126,10 @@ function updateChoropleth(dataYears2014, world) {
         .style('border-top-color', String)
         .text(function (d) {
             var r = quantize.invertExtent(d);
-            return formatNumber(r[0]);
+            return formatPercent(r[0]);
         });
 
-    // var g = svg.append("g")
+    //var g = svg.append("g")
     //    .attr("class", "key")
     //    .attr("transform", "translate(" + (width - 240) / 2 + "," + height / 2 + ")");
     //
@@ -130,34 +154,32 @@ function updateChoropleth(dataYears2014, world) {
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
 
-        console.log(dataYears2014[4]);
-
     var worldMap = svg.selectAll("path")
-        .data(topojson.feature(world, world.objects.countries).features)
+        .data(africa)
         .enter()
         .append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            console.log(d.id);
-            if (d.id === null) {
+            if ((d.properties.adm0_a3_is) === null) {
                 return "steelblue";
             } else {
-                if (d.id === null) {
+                if (findAspect(d.properties.adm0_a3_is, aspect) === null) {
                     return "#ccc";
                 } else {
                     //console.log(quantize(findAspect(d.properties.adm0_a3_is, aspect)));
-                    return quantize(findAspect(dataYears2014, d.id, aspect+"Score"));
+                    return quantize(findAspect(d.properties.adm0_a3_is, aspect));
                 }
             }
         });
 
 }
 
-function findAspect(data, ID, aspect) {
-    if (typeof data[ID] === "undefined") {
+function findAspect(country, aspect) {
+    //for (africa[country].properties.adm0_a3_is == country)
+    if (typeof malariaDataByCountryId[country] === "undefined") {
         //console.log('the property is not available...'); // print into console
         return null;
     } else {
-        return data[ID][aspect];
+        return malariaDataByCountryId[country][aspect];
     }
 }
