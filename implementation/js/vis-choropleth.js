@@ -170,19 +170,27 @@ function findAspect(data, ID, aspect) {
 }
 
 function updateBarChart(dataset, year) {
+
+    var chartData = dataset.filter(function(i){
+        //alert ($(this).text());
+        //return (i.building == $(this).text());
+        return (i.Year == year);
+    });
+
+    //console.log(chartData);
+
     svgBar.selectAll("rect")
-        .data(dataset)
+        .data(chartData)
         .enter()
         .append("rect")
-        .attr("x", function (d,i) {
+        .attr("fill","grey")
+        .attr("y", function (d,i) {
             //console.log(d.id)
-            return (i * (width / dataset.length))- barPadding  ;
+            return (i * (width / chartData.length))- barPadding  ;
         })
-        .attr("y", function(d) {
-            return height - d.CustomsRank; //Height minus data value
-        })
-        .attr("width", width / dataset.length )
-        .attr("height", function (d) {
+        .attr("x",barPadding)
+        .attr("height", height / chartData.length )
+        .attr("width", function (d) {
             //console.log(d.Code);
             return d.CustomsRank ;
         });
