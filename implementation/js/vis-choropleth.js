@@ -4,7 +4,13 @@ var width = 1000,
 formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".1f");
 
+var barPadding = 5;
+
 var svg = d3.select("#chart-area").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var svgBar = d3.select("#ranking-area").append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -65,6 +71,7 @@ queue()
 
         // Update choropleth
         updateChoropleth(dataYears2014, world);
+        updateBarChart(allData, 2014);
     });
 
 //d3.select("#ranking-type").on("change", updateChoropleth);
@@ -75,7 +82,7 @@ function updateChoropleth(dataYears2014, world) {
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
 
-    console.log(aspect+"Score");
+    //console.log(aspect+"Score");
 
     quantize.domain(d3.extent(allData, function (d) {
         return +d[aspect+"Score"]
@@ -130,7 +137,7 @@ function updateChoropleth(dataYears2014, world) {
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
 
-        console.log(dataYears2014[4]);
+        //console.log(dataYears2014[4]);
 
     var worldMap = svg.selectAll("path")
         .data(topojson.feature(world, world.objects.countries).features)
@@ -138,7 +145,7 @@ function updateChoropleth(dataYears2014, world) {
         .append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            console.log(d.id);
+            //console.log(d.id);
             if (d.id === null) {
                 return "steelblue";
             } else {
@@ -160,4 +167,24 @@ function findAspect(data, ID, aspect) {
     } else {
         return data[ID][aspect];
     }
+}
+
+function updateBarChart(dataset, year) {
+    svgBar.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function (d,i) {
+            //console.log(d.id)
+            return (i * (width / dataset.length))- barPadding  ;
+        })
+        .attr("y", function(d) {
+            return height - d.CustomsRank; //Height minus data value
+        })
+        .attr("width", width / dataset.length )
+        .attr("height", function (d) {
+            //console.log(d.Code);
+            return d.CustomsRank ;
+        });
+
 }
