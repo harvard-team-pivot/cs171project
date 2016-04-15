@@ -1,8 +1,8 @@
 // --> CREATE SVG DRAWING AREA
 var width = 1000,
     height = 800;
-    barWidth = width/3;
-    barHeight = 800;
+    barWidth = width/4;
+    barHeight = height;
     formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".1f");
 
