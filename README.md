@@ -96,7 +96,7 @@ Added them all to a single dataset for the time being.  Pushed to github with th
 
 Added bar chart.  Sorted it by highest score to lowest.  Made it grey per expert evaluation feedback.  Added it to bootstrap container.
 
-Added radar chart from [here](http://bl.ocks.org/nbremer/21746a9668ffdf6d8242).  Tweaking data to work with it.
+Added radar chart from [here](http://bl.ocks.org/nbremer/21746a9668ffdf6d8242).  Tweaking data to work with it.  I got the axes in there own variable.  Able to filter the axes, need to let the function accept scope or rank.
 
 Updated todo.
 
@@ -143,3 +143,5 @@ color code indicators to match stacked bar char
 view controller pub/sub
 
 Need header, rank vs score control and sortable elements added to bar chart
+
+pass value of top score or number of countries for rank to maxValue

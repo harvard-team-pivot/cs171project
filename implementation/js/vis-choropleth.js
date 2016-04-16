@@ -52,7 +52,7 @@ var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
     return "The " + d.Country + " is " + d.CustomsScore + " feet tall." ;
 });
 
-// Use the Queue.js library to read two files
+// Use the Queue.js library to read the data files
 
 queue()
     .defer(d3.csv, "data/International_LPI_from_2007.csv")
@@ -80,12 +80,15 @@ queue()
             dataYears2014[dataYears[3][i].ID] = dataYears[3][i];
         }
         //myAxes=Object.keys(allData[0]);
+        //variable this so you can use score or rank
         myAxes = Object.keys(allData[0]).filter(function (v) {
             return v.match(/Score/g);
-        })
+        });
         // Update choropleth
         updateChoropleth(dataYears2014, world);
         updateBarChart(allData, 2014);
+        //Call function to draw the Radar chart
+        RadarChart(".radarChart", allData, radarChartOptions);
 
     });
 

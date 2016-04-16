@@ -74,5 +74,3 @@ var radarChartOptions = {
     roundStrokes: true,
     color: color
 };
-//Call function to draw the Radar chart
-RadarChart(".radarChart", data, radarChartOptions);
