@@ -83,6 +83,7 @@ queue()
         // Update choropleth
         updateChoropleth(dataYears2014, world);
         updateBarChart(allData, 2014);
+
     });
 
 //d3.select("#ranking-type").on("change", updateChoropleth);

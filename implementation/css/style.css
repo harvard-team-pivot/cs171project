@@ -117,3 +117,9 @@ li.key {
     left: 0;
     text-align: center;
 }
+
+
+.legend {
+    font-family: 'Raleway', sans-serif;
+    fill: #333333;
+}
