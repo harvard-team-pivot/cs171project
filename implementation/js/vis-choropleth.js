@@ -35,7 +35,7 @@ var x = d3.scale.linear()
 
 var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
-
+var myAxes = {};
 var aspect = "Overall_LPI";
 
 var quantize = d3.scale.quantize()
@@ -79,7 +79,10 @@ queue()
         for (var i = 0; i < dataYears[3].length; i++) {
             dataYears2014[dataYears[3][i].ID] = dataYears[3][i];
         }
-
+        //myAxes=Object.keys(allData[0]);
+        myAxes = Object.keys(allData[0]).filter(function (v) {
+            return v.match(/Score/g);
+        })
         // Update choropleth
         updateChoropleth(dataYears2014, world);
         updateBarChart(allData, 2014);

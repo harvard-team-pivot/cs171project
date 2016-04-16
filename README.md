@@ -94,6 +94,10 @@ Working with four datasets doesn't make much sense to me.  The 2007 dataset is m
 
 Added them all to a single dataset for the time being.  Pushed to github with the *allData* array available for prototyping.  Need to loop through and add year now.  For single csv it's pretty basic.  Going to create an array of years and loop through all the data, adding year based on filename. Added each dataset to *allData* array.
 
+Added bar chart.  Sorted it by highest score to lowest.  Made it grey per expert evaluation feedback.  Added it to bootstrap container.
+
+Added radar chart from [here](http://bl.ocks.org/nbremer/21746a9668ffdf6d8242).  Tweaking data to work with it.
+
 Updated todo.
 
 # TODO:
@@ -134,6 +138,8 @@ Innovation
 
 Data cleanup array
 
-fisheye
+foldable map
 color code indicators to match stacked bar char
 view controller pub/sub
+
+Need header, rank vs score control and sortable elements added to bar chart

@@ -43,6 +43,21 @@ var data = [
         {axis:"Overall LPI Score",value:3.19}
     ]
 ];
+
+var testData = {//test
+    "CustomsScore": 2.90,
+    "Domestic Logistics Score": 1.70,
+    "Ease of ShipmentScore": 3.04,
+    "Ease of TrackingScore": 2.25,
+    "InfrastructureScore": 1.27,
+    "Logistics ServicesScore": 3.21,
+    "TimelinessScore": 3.53,
+    "Overall LPI Score": 3.19
+};
+
+//var myAxes=Object.keys(allData[0]);
+var myValues=testData["CustomsScore"].valueOf();
+//var allAxis = (testData[0].map(function(k, v){return v}));
 //////////////////////////////////////////////////////////////
 //////////////////// Draw the Chart //////////////////////////
 //////////////////////////////////////////////////////////////
