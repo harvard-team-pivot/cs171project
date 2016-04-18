@@ -1,9 +1,12 @@
 // --> CREATE SVG DRAWING AREA
 var width = 1000,
     height = 800;
-    barWidth = width/4;
-    barHeight = height;
-    formatPercent = d3.format(".0%"),
+//var margin = {top: 100, right: 100, bottom: 100, left: 100},
+//    width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+//    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+barWidth = width / 4;
+barHeight = height;
+formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".1f");
 
 var barPadding = 5;
@@ -30,12 +33,14 @@ var path = d3.geo.path()
     .projection(projection);
 
 var x = d3.scale.linear()
-    .domain([0,5])
+    .domain([0, 5])
     .range([0, barWidth]);
 
 var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
 var myAxes = {};
+var myAllData = [];
+var myAllArray = {};
 var aspect = "Overall_LPI";
 
 var quantize = d3.scale.quantize()
@@ -48,8 +53,8 @@ var quantize = d3.scale.quantize()
 var malariaDataByCountryId = [];
 
 // Initialize tooltip
-var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-    return "The " + d.Country + " is " + d.CustomsScore + " feet tall." ;
+var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
+    return "The " + d.Country + " is " + d.CustomsScore + " feet tall.";
 });
 
 // Use the Queue.js library to read the data files
@@ -87,8 +92,29 @@ queue()
         // Update choropleth
         updateChoropleth(dataYears2014, world);
         updateBarChart(allData, 2014);
+
+        //nonsense I'm working on SK
+        var radarData = allData.filter(function (i) {
+            //alert ($(this).text());
+            //return (i.building == $(this).text());
+            return (i.Year == 2007);
+        });
+
+        for (var i in radarData) {
+            for (var key in radarData[i]) {
+                if (radarData[i].hasOwnProperty(key)) {
+                    myAllArray = $.map(radarData[i], function (value, index) {
+                        if (value in myAxes) {
+                            return {value};
+                        }
+                    });
+                }
+            }
+            myAllData.push(myAllArray);
+        }
+
         //Call function to draw the Radar chart
-        RadarChart(".radarChart", myData, radarChartOptions);
+        RadarChart(".radarChart", myAllData, radarChartOptions);
 
     });
 
@@ -197,7 +223,7 @@ function updateBarChart(dataset, year) {
 
     //console.log(chartData.length)
 
-    chartData.sort( function(a, b){
+    chartData.sort(function (a, b) {
         return a.CustomsRank - b.CustomsRank;
     });
 
@@ -215,10 +241,10 @@ function updateBarChart(dataset, year) {
             return (i * (barHeight / chartData.length)) + barPadding;
         })
         .attr("x", barPadding)
-        .attr("height", (barHeight / chartData.length) - 1 )
+        .attr("height", (barHeight / chartData.length) - 1)
         .attr("width", function (d) {
             //console.log(d.Code);
-            return x(d.CustomsScore) ;
+            return x(d.CustomsScore);
         })
         .append("text")
         .attr("class", "bartext")

@@ -66,7 +66,7 @@ var color = d3.scale.ordinal()
     .range(["#EDC951","#CC333F","#00A0B0"]);
 
 var radarChartOptions = {
-    w: width,
+    w:  $('.radarChart').width()-10,
     h: height,
     margin: margin,
     maxValue: 5,
@@ -85,3 +85,4 @@ for (var key in testData) {
     }
 }
 myData.push(myArray);
+

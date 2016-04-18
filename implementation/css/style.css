@@ -123,3 +123,7 @@ li.key {
     font-family: 'Raleway', sans-serif;
     fill: #333333;
 }
+
+radar .radarChart {
+    width: inherit;
+}
