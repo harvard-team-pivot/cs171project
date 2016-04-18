@@ -45,7 +45,7 @@ function RadarChart(id, data, options) {
         Format = d3.format(',d'),			 	//Percentage formatting
         angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
-    console.log(allAxis.length);
+    //console.log(allAxis.length);
 
 
     //Scale for the radius
@@ -158,7 +158,7 @@ function RadarChart(id, data, options) {
 
     //Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
-        .data(data)
+        .data(myData)
         .enter().append("g")
         .attr("class", "radarWrapper");
 

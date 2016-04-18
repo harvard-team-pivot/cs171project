@@ -74,3 +74,14 @@ var radarChartOptions = {
     roundStrokes: true,
     color: color
 };
+
+var myData = [];
+var myArray = {};
+for (var key in testData) {
+    if (testData.hasOwnProperty(key)) {
+        myArray = $.map(testData, function (value, index) {
+            return {value};
+        });
+    }
+}
+myData.push(myArray);

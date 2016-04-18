@@ -88,7 +88,7 @@ queue()
         updateChoropleth(dataYears2014, world);
         updateBarChart(allData, 2014);
         //Call function to draw the Radar chart
-        RadarChart(".radarChart", allData, radarChartOptions);
+        RadarChart(".radarChart", myData, radarChartOptions);
 
     });
 
@@ -195,7 +195,7 @@ function updateBarChart(dataset, year) {
         return (i.Year == year);
     });
 
-    console.log(chartData.length)
+    //console.log(chartData.length)
 
     chartData.sort( function(a, b){
         return a.CustomsRank - b.CustomsRank;
