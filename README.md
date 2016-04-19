@@ -1,4 +1,4 @@
-# cs171project
+# Where's my Widget?
 
 
 Final Project collaboration site
@@ -81,6 +81,7 @@ Use the (peer) feedback you have received so far and the knowledge from the post
 
 # Implementation:
 
+[Link](http://harvard-team-pivot.github.io/cs171project/)
 
 ## Data
 
