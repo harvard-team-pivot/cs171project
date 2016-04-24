@@ -1,6 +1,6 @@
 // --> CREATE SVG DRAWING AREA
-var width = 1000,
-    height = 800;
+var width = 800,
+    height = 400;
 //var margin = {top: 100, right: 100, bottom: 100, left: 100},
 //    width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 //    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
@@ -20,14 +20,9 @@ var svgBar = d3.select("#ranking-area").append("svg")
     .attr("height", barHeight);
 
 var projection = d3.geo.mercator()
-    .translate([width / 2, height / 2])
-    //.center(20)
-    .scale([140]);
-
-var projection = d3.geo.equirectangular()
-    .translate([width / 2, height / 2])
-    //.center(20)
-    .scale([250]);
+    .scale((width + 1) / 2 / Math.PI)
+    .translate([width / 2, ((height / 2)+50)])
+    .precision(.1);;
 
 var path = d3.geo.path()
     .projection(projection);
@@ -50,7 +45,10 @@ var quantize = d3.scale.quantize()
 
 //console.log(colorbrewer.Greens[9]);
 
-var malariaDataByCountryId = [];
+// Initialize legend
+var legend = d3.select('#legend')
+    .append('ul')
+    .attr('class', 'list-inline');
 
 // Initialize tooltip
 var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
@@ -134,70 +132,57 @@ function updateChoropleth(dataset, year, world) {
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
 
-    quantize.domain(d3.extent(allData, function (d) {
+    quantize.domain(d3.extent(mapData, function (d) {
         return +d[aspect + "Score"]
     }));
 
-    //legend
-
-    var legend = d3.select('#legend')
-        .append('ul')
-        .attr('class', 'list-inline');
-
-    var keys = legend.selectAll('li.key')
+    // Render legend
+    var keys = legend.selectAll('li')
         .data(quantize.range());
 
-    // legend.exit()
-    //    .attr("opacity", 1)
-    //    .transition()
-    //    .duration(1000)
-    //    .attr("opacity", 0)
-    //    .remove();
+    keys.attr("class", "update key")
+        .text(function (d) {
+        var r = quantize.invertExtent(d);
+        return formatNumber(r[0]);
+        });
 
     keys.enter().append('li')
-        .attr('class', 'key')
+        .attr("class", "enter key")
         .style('border-top-color', String)
         .text(function (d) {
             var r = quantize.invertExtent(d);
             return formatNumber(r[0]);
         });
 
-    // var g = svg.append("g")
-    //    .attr("class", "key")
-    //    .attr("transform", "translate(" + (width - 240) / 2 + "," + height / 2 + ")");
-    //
-    //g.selectAll("rect")
-    //    .data(threshold.range().map(function(quantize) {
-    //        var d = threshold.invertExtent(quantize);
-    //        if (d[0] == null) d[0] = quantize.domain()[0];
-    //        if (d[1] == null) d[1] = quantize.domain()[1];
-    //        return d;
-    //    }))
-    //    .enter().append("rect")
-    //    .attr("height", 8)
-    //    .attr("x", function(d) { return quantize(d[0]); })
-    //    .attr("width", function(d) { return quantize(d[1]) - quantize(d[0]); })
-    //    .style("fill", function(d) { return threshold(d[0]); });
-    //
-    //g.call(xAxis).append("text")
-    //    .attr("class", "caption")
-    //    .attr("y", -6)
-    //    .text(aspect);
+    keys.exit()
+       .attr("opacity", 1)
+       .transition()
+       .duration(1000)
+       .attr("opacity", 0)
+       .remove();
 
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
     var worldMap = svg.selectAll("path")
-        .data(topojson.feature(world, world.objects.countries).features)
-        .enter()
-        .append("path")
+        .data(topojson.feature(world, world.objects.countries).features);
+
+    worldMap.attr("class", "update")
+        .style("fill", function (d) {
+            return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
+        });
+
+    worldMap.enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
             return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
         });
 
+    worldMap.exit().remove();
+
 }
 
 function findAspect(data, ID, aspect) {
+    console.log(aspect);
     if (typeof data[ID] === "undefined") {
         //console.log('the property is not available...'); // print into console
         return null;
