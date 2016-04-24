@@ -55,6 +55,9 @@ var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
     return "The " + d.Country + " is " + d.CustomsScore + " feet tall.";
 });
 
+var tooltip = d3.select('body').append('div')
+    .attr('class', 'hidden tooltip');
+
 // Use the Queue.js library to read the data files
 
 queue()
@@ -126,6 +129,8 @@ function updateChoropleth(dataset, year, world) {
         mapDataByID[mapData[i].ID] = mapData[i];
     }
 
+console.log(mapDataByID);
+
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
@@ -173,7 +178,27 @@ function updateChoropleth(dataset, year, world) {
         .attr("d", path)
         .style("fill", function (d) {
             return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
-        });
+        })
+       .on('mouseover', function(d) {
+            var mouse = d3.mouse(svg.node()).map(function(d) {
+                return parseInt(d);
+            });
+            tooltip.classed('hidden', false)
+            .attr('style', 'left:' + (mouse[0]) + 'px; top:' + (mouse[1]) + 'px')
+            .html("<b>" + mapDataByID[d.id].Country + "</b>" + "</br>" + 
+                  "Overall LPI Score: " + mapDataByID[d.id]['Overall LPI Score'] + "</br>" + 
+                  "Customs Score: " + mapDataByID[d.id]['CustomsScore'] + "</br>" + 
+                  "Infrastructure Score: " + mapDataByID[d.id]['InfrastructureScore'] + "</br>" + 
+                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
+                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
+                  "Logistics Services Score: " + mapDataByID[d.id]['Logistics ServicesScore'] + "</br>" + 
+                  "Ease of Tracking Score " + mapDataByID[d.id]['Ease of TrackingScore'] + "</br>" + 
+                  "Timeliness Score: " + mapDataByID[d.id]['TimelinessScore']
+                  );
+            })
+        .on('mouseout', function() {
+            tooltip.classed('hidden', true);
+            });;
 
     worldMap.exit().remove();
 
