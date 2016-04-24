@@ -118,8 +118,6 @@ queue()
 function updateChoropleth(dataset, year, world) {
 
     var mapData = dataset.filter(function (i) {
-        //alert ($(this).text());
-        //return (i.building == $(this).text());
         return (i.Year == year);
     });
 
@@ -181,16 +179,6 @@ function updateChoropleth(dataset, year, world) {
 
 }
 
-function findAspect(data, ID, aspect) {
-    console.log(aspect);
-    if (typeof data[ID] === "undefined") {
-        //console.log('the property is not available...'); // print into console
-        return null;
-    } else {
-        return data[ID][aspect];
-    }
-}
-
 function updateBarChart(dataset, year) {
 
     var chartData = dataset.filter(function (i) {
@@ -241,4 +229,14 @@ function updateBarChart(dataset, year) {
     // Invoke tooltip
     svgBar.call(tip)
 
+}
+
+function findAspect(data, ID, aspect) {
+    console.log(aspect);
+    if (typeof data[ID] === "undefined") {
+        //console.log('the property is not available...'); // print into console
+        return null;
+    } else {
+        return data[ID][aspect];
+    }
 }
