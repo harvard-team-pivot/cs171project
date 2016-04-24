@@ -79,18 +79,17 @@ queue()
             allData = allData.concat(dataYears[i]);
         }
 
-        var dataYears2014 = [];
-
-        for (var i = 0; i < dataYears[3].length; i++) {
-            dataYears2014[dataYears[3][i].ID] = dataYears[3][i];
-        }
         //myAxes=Object.keys(allData[0]);
         //variable this so you can use score or rank
         myAxes = Object.keys(allData[0]).filter(function (v) {
             return v.match(/Score/g);
         });
-        // Update choropleth
-        updateChoropleth(dataYears2014, world);
+
+        // Update
+        updateChoropleth(allData, 2014, world);
+        $("#ranking-type").change(function(){
+            updateChoropleth(allData, 2014, world);
+        });
         updateBarChart(allData, 2014);
 
         //nonsense I'm working on SK
@@ -118,15 +117,22 @@ queue()
 
     });
 
-//d3.select("#ranking-type").on("change", updateChoropleth);
+function updateChoropleth(dataset, year, world) {
 
-function updateChoropleth(dataYears2014, world) {
+    var mapData = dataset.filter(function (i) {
+        //alert ($(this).text());
+        //return (i.building == $(this).text());
+        return (i.Year == year);
+    });
+
+    var mapDataByID = [];
+    for (var i = 0; i < mapData.length; i++) {
+        mapDataByID[mapData[i].ID] = mapData[i];
+    }
 
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
-
-    //console.log(aspect+"Score");
 
     quantize.domain(d3.extent(allData, function (d) {
         return +d[aspect + "Score"]
@@ -141,7 +147,7 @@ function updateChoropleth(dataYears2014, world) {
     var keys = legend.selectAll('li.key')
         .data(quantize.range());
 
-    //legend.exit()
+    // legend.exit()
     //    .attr("opacity", 1)
     //    .transition()
     //    .duration(1000)
@@ -180,26 +186,13 @@ function updateChoropleth(dataYears2014, world) {
 
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
-
-    //console.log(dataYears2014[4]);
-
     var worldMap = svg.selectAll("path")
         .data(topojson.feature(world, world.objects.countries).features)
         .enter()
         .append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            //console.log(d.id);
-            if (d.id === null) {
-                return "steelblue";
-            } else {
-                if (d.id === null) {
-                    return "#ccc";
-                } else {
-                    //console.log(quantize(findAspect(d.properties.adm0_a3_is, aspect)));
-                    return quantize(findAspect(dataYears2014, d.id, aspect + "Score"));
-                }
-            }
+            return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
         });
 
 }
