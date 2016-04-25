@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <div class="container" >
-    <h1>What's taking so long?</h1>
+    <h1>Where's my Widget</h1>
     <div class="row">
+
         <div class="col-md-2 pull-left">
             <div class="form-group">
                 <label class="checkbox"><input type="checkbox" checked="true" ng-model="radar.config.showAxesLabels"
@@ -36,17 +37,16 @@
             <div class="radarChart"></div>
         </div>
         <div class="col-md-8">
-            <!-- Select box to choose the ranking type -->
             <form class="form-inline">
                 <div class="form-group">
                     <label for="rankingType">Group by</label>
                     <select class="form-control" id="ranking-type">
-                        <option value="Overall_LPI">Overall LPI Score</option>
-                        <option selected="selected" value="Customs">Customs Score</option>
+                        <option selected="selected" value="Overall LPI ">Overall LPI Score</option>
+                        <option value="Customs">Customs Score</option>
                         <option value="Infrastructure">Infrastructure Score</option>
-                        <option value="International_Shipment">International Shipment Score</option>
-                        <option value="Logistics_Services">Logistics Services Score</option>
-                        <option value="Ease_of_Tracking">Ease of Tracking Score</option>
+                        <option value="International Shipment">International Shipment Score</option>
+                        <option value="Logistics Services">Logistics Services Score</option>
+                        <option value="Ease of Tracking">Ease of Tracking Score</option>
                         <option value="Timeliness">Timeliness Score</option>
                     </select>
                     <div id="legend"></div>
@@ -77,6 +77,8 @@
 <script src="js/lodash.core.js"></script>
 <script src="js/d3.tip.js"></script>
 <script src="js/radarChart.js"></script>
+<script src="js/d3.geo.projection.min.js"></script>
+
 <!--<script src="js/colorbrewer.min.js"></script>-->
 
 <!-- Choropleth and second visualization -->

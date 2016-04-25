@@ -1,6 +1,6 @@
 // --> CREATE SVG DRAWING AREA
-var width = 1000,
-    height = 800;
+var width = 800,
+    height = 400;
 //var margin = {top: 100, right: 100, bottom: 100, left: 100},
 //    width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 //    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
@@ -20,14 +20,14 @@ var svgBar = d3.select("#ranking-area").append("svg")
     .attr("height", barHeight);
 
 var projection = d3.geo.mercator()
-    .translate([width / 2, height / 2])
-    //.center(20)
-    .scale([140]);
+    .scale((width + 1) / 2 / Math.PI)
+    .translate([width / 2, ((height / 2)+50)])
+    .precision(.1);
 
-var projection = d3.geo.equirectangular()
-    .translate([width / 2, height / 2])
-    //.center(20)
-    .scale([250]);
+// var projection = d3.geo.eckert5()
+//     .scale((width + 1) / 2 / Math.PI)
+//     .translate([width / 2, ((height / 2)+50)])
+//     .precision(.1);    
 
 var path = d3.geo.path()
     .projection(projection);
@@ -50,7 +50,10 @@ var quantize = d3.scale.quantize()
 
 //console.log(colorbrewer.Greens[9]);
 
-var malariaDataByCountryId = [];
+// Initialize legend
+var legend = d3.select('#legend')
+    .append('ul')
+    .attr('class', 'list-inline');
 
 var folded;
 
@@ -58,6 +61,9 @@ var folded;
 var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
     return "The " + d.Country + " is " + d.CustomsScore + " feet tall.";
 });
+
+var tooltip = d3.select('body').append('div')
+    .attr('class', 'hidden tooltip');
 
 // Use the Queue.js library to read the data files
 
@@ -81,18 +87,17 @@ queue()
             allData = allData.concat(dataYears[i]);
         }
 
-        var dataYears2014 = [];
-
-        for (var i = 0; i < dataYears[3].length; i++) {
-            dataYears2014[dataYears[3][i].ID] = dataYears[3][i];
-        }
         //myAxes=Object.keys(allData[0]);
         //variable this so you can use score or rank
         myAxes = Object.keys(allData[0]).filter(function (v) {
             return v.match(/Score/g);
         });
-        // Update choropleth
-        updateChoropleth(dataYears2014, world);
+
+        // Update
+        updateChoropleth(allData, 2014, world);
+        $("#ranking-type").change(function(){
+            updateChoropleth(allData, 2014, world);
+        });
         updateBarChart(allData, 2014);
 
         //nonsense I'm working on SK
@@ -120,110 +125,101 @@ queue()
 
     });
 
-//d3.select("#ranking-type").on("change", updateChoropleth);
+function updateChoropleth(dataset, year, world) {
 
-function updateChoropleth(dataYears2014, world) {
+    var mapData = dataset.filter(function (i) {
+        return (i.Year == year);
+    });
+
+    var mapDataByID = [];
+    for (var i = 0; i < mapData.length; i++) {
+        mapDataByID[mapData[i].ID] = mapData[i];
+    }
+
+console.log(mapDataByID);
 
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
     var aspect = selectBox1.options[selectBox1.selectedIndex].value;
 
-    //console.log(aspect+"Score");
-
-    quantize.domain(d3.extent(allData, function (d) {
+    quantize.domain(d3.extent(mapData, function (d) {
         return +d[aspect + "Score"]
     }));
 
-    //legend
-
-    var legend = d3.select('#legend')
-        .append('ul')
-        .attr('class', 'list-inline');
-
-    var keys = legend.selectAll('li.key')
+    // Render legend
+    var keys = legend.selectAll('li')
         .data(quantize.range());
 
-    //legend.exit()
-    //    .attr("opacity", 1)
-    //    .transition()
-    //    .duration(1000)
-    //    .attr("opacity", 0)
-    //    .remove();
+    keys.attr("class", "update key")
+        .text(function (d) {
+        var r = quantize.invertExtent(d);
+        return formatNumber(r[0]);
+        });
 
     keys.enter().append('li')
-        .attr('class', 'key')
+        .attr("class", "enter key")
         .style('border-top-color', String)
         .text(function (d) {
             var r = quantize.invertExtent(d);
             return formatNumber(r[0]);
         });
 
-    // var g = svg.append("g")
-    //    .attr("class", "key")
-    //    .attr("transform", "translate(" + (width - 240) / 2 + "," + height / 2 + ")");
-    //
-    //g.selectAll("rect")
-    //    .data(threshold.range().map(function(quantize) {
-    //        var d = threshold.invertExtent(quantize);
-    //        if (d[0] == null) d[0] = quantize.domain()[0];
-    //        if (d[1] == null) d[1] = quantize.domain()[1];
-    //        return d;
-    //    }))
-    //    .enter().append("rect")
-    //    .attr("height", 8)
-    //    .attr("x", function(d) { return quantize(d[0]); })
-    //    .attr("width", function(d) { return quantize(d[1]) - quantize(d[0]); })
-    //    .style("fill", function(d) { return threshold(d[0]); });
-    //
-    //g.call(xAxis).append("text")
-    //    .attr("class", "caption")
-    //    .attr("y", -6)
-    //    .text(aspect);
+    keys.exit()
+       .attr("opacity", 1)
+       .transition()
+       .duration(1000)
+       .attr("opacity", 0)
+       .remove();
 
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
-
-    //console.log(dataYears2014[4]);
-
     var worldMap = svg.selectAll("path")
-        .data(topojson.feature(world, world.objects.countries).features)
-        .enter()
-        .append("path")
-        .attr("d", path)
+        .data(topojson.feature(world, world.objects.countries).features);
+
+    worldMap.attr("class", "update")
         .style("fill", function (d) {
-            //console.log(d.id);
-            if (d.id === null) {
-                return "steelblue";
-            } else {
-                if (d.id === null) {
-                    return "#ccc";
-                } else {
-                    //console.log(quantize(findAspect(d.properties.adm0_a3_is, aspect)));
-                    return quantize(findAspect(dataYears2014, d.id, aspect + "Score"));
-                }
-            }
+            return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
         });
 
-    folded = new OriDomi('#chart-area', {
-        vPanels:         5,     // number of panels when folding left or right (vertically oriented)
-        hPanels:         3,     // number of panels when folding top or bottom
-        speed:           1200,  // folding duration in ms
-        ripple:          2,     // backwards ripple effect when animating
-        shadingIntesity: .5,    // lessen the shading effect
-        perspective:     800,   // smaller values exaggerate 3D distortion
-        maxAngle:        40,    // keep the user's folds within a range of -40 to 40 degrees
-        shading:         'soft' // change the shading type
-    });
+    //folded = new OriDomi('#chart-area', {
+    //    vPanels:         5,     // number of panels when folding left or right (vertically oriented)
+    //    hPanels:         3,     // number of panels when folding top or bottom
+    //    speed:           1200,  // folding duration in ms
+    //    ripple:          2,     // backwards ripple effect when animating
+    //    shadingIntesity: .5,    // lessen the shading effect
+    //    perspective:     800,   // smaller values exaggerate 3D distortion
+    //    maxAngle:        40,    // keep the user's folds within a range of -40 to 40 degrees
+    //    shading:         'soft' // change the shading type
+    //});
 
-}
+    worldMap.enter().append("path")
+        .attr("d", path)
+        .style("fill", function (d) {
+            return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
+        })
+       .on('mouseover', function(d) {
+            var mouse = d3.mouse(svg.node()).map(function(d) {
+                return parseInt(d);
+            });
+            tooltip.classed('hidden', false)
+            .attr('style', 'left:' + (mouse[0]) + 'px; top:' + (mouse[1]) + 'px')
+            .html("<b>" + mapDataByID[d.id].Country + "</b>" + "</br>" + 
+                  "Overall LPI Score: " + mapDataByID[d.id]['Overall LPI Score'] + "</br>" + 
+                  "Customs Score: " + mapDataByID[d.id]['CustomsScore'] + "</br>" + 
+                  "Infrastructure Score: " + mapDataByID[d.id]['InfrastructureScore'] + "</br>" + 
+                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
+                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
+                  "Logistics Services Score: " + mapDataByID[d.id]['Logistics ServicesScore'] + "</br>" + 
+                  "Ease of Tracking Score " + mapDataByID[d.id]['Ease of TrackingScore'] + "</br>" + 
+                  "Timeliness Score: " + mapDataByID[d.id]['TimelinessScore']
+                  );
+            })
+        .on('mouseout', function() {
+            tooltip.classed('hidden', true);
+            });;
 
-function findAspect(data, ID, aspect) {
-    if (typeof data[ID] === "undefined") {
-        //console.log('the property is not available...'); // print into console
-        return null;
-    } else {
-        return data[ID][aspect];
-    }
+    worldMap.exit().remove();
+
 }
 
 function updateBarChart(dataset, year) {
@@ -276,4 +272,14 @@ function updateBarChart(dataset, year) {
     // Invoke tooltip
     svgBar.call(tip)
 
+}
+
+function findAspect(data, ID, aspect) {
+    console.log(aspect);
+    if (typeof data[ID] === "undefined") {
+        //console.log('the property is not available...'); // print into console
+        return null;
+    } else {
+        return data[ID][aspect];
+    }
 }
