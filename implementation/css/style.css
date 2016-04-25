@@ -87,6 +87,11 @@ li.key {
     text-anchor: end;
 }
 
+#ranking-area {
+    margin-right: 45px;
+    border-radius: 2px;
+}
+
 /****************/
 /*   TOOLTIPS   */
 /****************/
@@ -128,3 +133,7 @@ radar .radarChart {
     width: inherit;
 }
 
+.container {
+    margin-right: 45px;
+    margin-left: 45px;
+}
