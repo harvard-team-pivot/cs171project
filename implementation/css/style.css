@@ -34,6 +34,11 @@ li.key {
     padding-left: 0;
     padding-right: 0;
 }
+
+.label:hover {
+    font-size: 16px;
+    line-height: 1.3em;
+}
 /*.q0-9 { fill:rgb(247,251,255); }*/
 /*.q1-9 { fill:rgb(222,235,247); }*/
 /*.q2-9 { fill:rgb(198,219,239); }*/
@@ -127,3 +132,4 @@ li.key {
 radar .radarChart {
     width: inherit;
 }
+
