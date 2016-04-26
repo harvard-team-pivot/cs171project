@@ -125,7 +125,7 @@ queue()
 
         folded = new OriDomi('#chart-area', {
             //vPanels: [10, 10, 10, 70] ,
-            vPanels:         5,     // number of panels when folding left or right (vertically oriented)
+            vPanels:         6,     // number of panels when folding left or right (vertically oriented)
             hPanels:         3,     // number of panels when folding top or bottom
             speed:           1200,  // folding duration in ms
             ripple:          2,     // backwards ripple effect when animating
@@ -135,7 +135,22 @@ queue()
             shading:         'soft' // change the shading type
         });
 
-        folded.accordion(80);
+        folded.accordion(50);
+
+        // country drop-down ->  stackoverflow.com/questions/20780835/putting-the-country-on-drop-down-list-using-d3-via-csv-file
+
+        var dropDown = d3.select("#table_container").append("select")
+            .attr("name", "country-list");
+
+        var options = dropDown.selectAll("option")
+            .data(allData)
+            .enter()
+            .append("option");
+
+        options.text(function (d) { return d.Country; })
+            .attr("value", function (d) { return d.Code; });
+
+        dropDown.on("change", menuChanged });
 
     });
 
@@ -286,3 +301,28 @@ function findAspect(data, ID, aspect) {
         return data[ID][aspect];
     }
 }
+
+function menuChanged() {
+    //the name isn't important, but has to match the name
+    //you added to the menu's "change" event listener.
+
+    var selectedValue = d3.event.target.value;
+    //get the name of the selected option from the change event object
+
+    jsonOutside.features.forEach(function (d) {
+        // loop through json data to match td entry
+
+        if (selectedValue === d.properties.name) {
+            //for each data object in the features array (d), compare it's
+            //name against the one you got from the event object
+            //if they match, then:
+
+            alert(selectedValue)  //remove this line when things are working!
+
+            click(d); // pass json element that matches selected value to click
+            //which will respond the same way as if you clicked the country on
+            //the map.
+        };
+    })
+}
+
