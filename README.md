@@ -91,6 +91,8 @@ Use the (peer) feedback you have received so far and the knowledge from the post
 
 Dropdowns added for sorting and filtering map and graph indicators.  Added country dropdown too.  Sizing of bootstrap containers to fit visualizations in progress.
 
+Really should have a way to link git commit history into this document.
+
 ## Data
 
 Obtained data from the [World Bank](http://lpi.worldbank.org/) logistics performance index.
