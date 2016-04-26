@@ -63,9 +63,15 @@ NEEDS Work
 
 ### Story Boards
 
+Got the indigo studio tool from infragistics.  Started some storyboards.  Don't really like the tool.
+
 ### Interactions
 
+See above
+
 ### Innovation
+
+Added the folding feature to the map.  Unfortunately, this broke all the hover's over the countries.  Clicks too.  Looking at workarounds.
 
 # Evaluation
 
@@ -82,6 +88,8 @@ Use the (peer) feedback you have received so far and the knowledge from the post
 # Implementation:
 
 [Link](http://harvard-team-pivot.github.io/cs171project/)
+
+Dropdowns added for sorting and filtering map and graph indicators.  Added country dropdown too.  Sizing of bootstrap containers to fit visualizations in progress.
 
 ## Data
 
