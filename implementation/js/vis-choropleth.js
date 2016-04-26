@@ -107,6 +107,10 @@ queue()
             return (i.Year == 2007);
         });
 
+        //radarData.sort(function(a,b) {return a.Country-b.Country;});
+
+        console.log(radarData);
+
         for (var i in radarData) {
             for (var key in radarData[i]) {
                 if (radarData[i].hasOwnProperty(key)) {
@@ -139,18 +143,22 @@ queue()
 
         // country drop-down ->  stackoverflow.com/questions/20780835/putting-the-country-on-drop-down-list-using-d3-via-csv-file
 
+        var dropdownData=d3.nest()
+            .sortValues(function(a,b) {return d3.descending(b["Country"], a["Country"]);})
+            .entries(radarData);
+
         var dropDown = d3.select("#table_container").append("select")
             .attr("name", "country-list");
 
         var options = dropDown.selectAll("option")
-            .data(allData)
+            .data(dropdownData)
             .enter()
             .append("option");
 
         options.text(function (d) { return d.Country; })
             .attr("value", function (d) { return d.Code; });
 
-        dropDown.on("change", menuChanged });
+        dropDown.on("change", menuChanged );
 
     });
 
