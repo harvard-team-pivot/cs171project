@@ -34,6 +34,7 @@ li.key {
     padding-left: 0;
     padding-right: 0;
 }
+
 /*.q0-9 { fill:rgb(247,251,255); }*/
 /*.q1-9 { fill:rgb(222,235,247); }*/
 /*.q2-9 { fill:rgb(198,219,239); }*/
@@ -51,7 +52,7 @@ li.key {
     fill: #3C948B;
 }
 
-.bar:hover {
+.rect:hover {
     fill: #8E7060;
 }
 
@@ -86,6 +87,10 @@ li.key {
     text-anchor: end;
 }
 
+#ranking-area {
+    margin-right: 45px;
+    border-radius: 2px;
+}
 
 /****************/
 /*   TOOLTIPS   */
@@ -137,4 +142,9 @@ div.tooltip {
 
 radar .radarChart {
     width: inherit;
+}
+
+.container {
+    margin-right: 45px;
+    margin-left: 45px;
 }
