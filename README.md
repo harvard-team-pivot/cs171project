@@ -109,6 +109,10 @@ Added bar chart.  Sorted it by highest score to lowest.  Made it grey per expert
 
 Added radar chart from [here](http://bl.ocks.org/nbremer/21746a9668ffdf6d8242).  Tweaking data to work with it.  I got the axes in there own variable.  Able to filter the axes, need to let the function accept scope or rank.
 
+Added choropleth map modeled after [here](https://bl.ocks.org/mbostock/4060606). Added the ability to filter by metric, and set us up for the ability to filter by year (currently set to 2014).
+
+Noticed json for world map codes used numeric country codes, whereas our data contained the ISO-ALPHA-3 code. Did a lookup to convert the alpha code to a numeric code, inserted a column in our data called "ID" to be used for the choropleth map.
+
 Updated todo.
 
 # TODO:
