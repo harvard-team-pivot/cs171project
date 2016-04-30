@@ -93,7 +93,7 @@ Dropdowns added for sorting and filtering map and graph indicators.  Added count
 
 Really should have a way to link git commit history into this document.
 
-Starting to link viz's through menuChanged function.
+Starting to link viz's through menuChanged function.  Updated bar color on selection in country dropdown.
 
 ## Data
 
