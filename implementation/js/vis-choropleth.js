@@ -327,9 +327,10 @@ function menuChanged() {
     var selectedValue = "rect."+d3.event.target.value + "Bar";
     //get the name of the selected option from the change event object
 
-    alert(selectedValue ) ; //remove this line when things are working!
+    console.log(selectedValue) ;
 
-    //d3.selectAll("rect.NORBar").style("fill", "orange");
+    //reset bars then change color of selected
+    d3.selectAll("rect").style("fill", "grey");
     d3.selectAll(selectedValue).style("fill", "purple");
 
 }
