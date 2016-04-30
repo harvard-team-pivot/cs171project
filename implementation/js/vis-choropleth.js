@@ -324,10 +324,14 @@ function menuChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
-    var selectedValue = d3.event.target.value;
+    var selectedValue = "rect."+d3.event.target.value + "Bar";
     //get the name of the selected option from the change event object
 
-    alert(selectedValue + "Bar") ; //remove this line when things are working!
+    alert(selectedValue ) ; //remove this line when things are working!
+
+    //d3.selectAll("rect.NORBar").style("fill", "orange");
+    d3.selectAll(selectedValue).style("fill", "purple");
+
 }
 
 function mapChanged() {
@@ -336,6 +340,8 @@ function mapChanged() {
 
     var selectedValue = d3.event.target.value;
     //get the name of the selected option from the change event object
+
+
 
     jsonOutside.features.forEach(function (d) {
         // loop through json data to match td entry
