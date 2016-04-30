@@ -93,6 +93,8 @@ Dropdowns added for sorting and filtering map and graph indicators.  Added count
 
 Really should have a way to link git commit history into this document.
 
+Starting to link viz's through menuChanged function.
+
 ## Data
 
 Obtained data from the [World Bank](http://lpi.worldbank.org/) logistics performance index.
@@ -159,4 +161,6 @@ view controller pub/sub
 
 Need header, rank vs score control and sortable elements added to bar chart
 
-pass value of top score or number of countries for rank to maxValue
+pass value of top score or number of countries for rank to
+
+variablize tool tip

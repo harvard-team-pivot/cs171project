@@ -21,7 +21,7 @@ var svgBar = d3.select("#ranking-area").append("svg")
 
 var projection = d3.geo.mercator()
     .scale((width + 1) / 2 / Math.PI)
-    .translate([width / 2, ((height / 2)+50)])
+    .translate([width / 2, ((height / 2) + 50)])
     .precision(.1);
 
 // var projection = d3.geo.eckert5()
@@ -58,8 +58,9 @@ var legend = d3.select('#legend')
 var folded;
 
 // Initialize tooltip
+// Variablize
 var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-    return "The " + d.Country + " is " + d.CustomsScore + " feet tall.";
+    return "The " + d.Country + " customs score is " + d.CustomsScore + ".";
 });
 
 var tooltip = d3.select('body').append('div')
@@ -95,7 +96,7 @@ queue()
 
         // Update
         updateChoropleth(allData, 2014, world);
-        $("#ranking-type").change(function(){
+        $("#ranking-type").change(function () {
             updateChoropleth(allData, 2014, world);
         });
         updateBarChart(allData, 2014);
@@ -129,22 +130,24 @@ queue()
 
         folded = new OriDomi('#chart-area', {
             //vPanels: [10, 10, 10, 70] ,
-            vPanels:         6,     // number of panels when folding left or right (vertically oriented)
-            hPanels:         3,     // number of panels when folding top or bottom
-            speed:           1200,  // folding duration in ms
-            ripple:          2,     // backwards ripple effect when animating
+            vPanels: 6,     // number of panels when folding left or right (vertically oriented)
+            hPanels: 3,     // number of panels when folding top or bottom
+            speed: 1200,  // folding duration in ms
+            ripple: 2,     // backwards ripple effect when animating
             shadingIntesity: .5,    // lessen the shading effect
-            perspective:     200,   // smaller values exaggerate 3D distortion
-            maxAngle:        40,    // keep the user's folds within a range of -40 to 40 degrees
-            shading:         'soft' // change the shading type
+            perspective: 200,   // smaller values exaggerate 3D distortion
+            maxAngle: 40,    // keep the user's folds within a range of -40 to 40 degrees
+            shading: 'soft' // change the shading type
         });
 
         folded.accordion(50);
 
         // country drop-down ->  stackoverflow.com/questions/20780835/putting-the-country-on-drop-down-list-using-d3-via-csv-file
 
-        var dropdownData=d3.nest()
-            .sortValues(function(a,b) {return d3.descending(b["Country"], a["Country"]);})
+        var dropdownData = d3.nest()
+            .sortValues(function (a, b) {
+                return d3.descending(b["Country"], a["Country"]);
+            })
             .entries(radarData);
 
         var dropDown = d3.select("#table_container").append("select")
@@ -155,10 +158,14 @@ queue()
             .enter()
             .append("option");
 
-        options.text(function (d) { return d.Country; })
-            .attr("value", function (d) { return d.Code; });
+        options.text(function (d) {
+                return d.Country;
+            })
+            .attr("value", function (d) {
+                return d.Code;
+            });
 
-        dropDown.on("change", menuChanged );
+        dropDown.on("change", menuChanged);
 
     });
 
@@ -173,7 +180,7 @@ function updateChoropleth(dataset, year, world) {
         mapDataByID[mapData[i].ID] = mapData[i];
     }
 
-console.log(mapDataByID);
+    console.log(mapDataByID);
 
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
@@ -189,8 +196,8 @@ console.log(mapDataByID);
 
     keys.attr("class", "update key")
         .text(function (d) {
-        var r = quantize.invertExtent(d);
-        return formatNumber(r[0]);
+            var r = quantize.invertExtent(d);
+            return formatNumber(r[0]);
         });
 
     keys.enter().append('li')
@@ -202,11 +209,11 @@ console.log(mapDataByID);
         });
 
     keys.exit()
-       .attr("opacity", 1)
-       .transition()
-       .duration(1000)
-       .attr("opacity", 0)
-       .remove();
+        .attr("opacity", 1)
+        .transition()
+        .duration(1000)
+        .attr("opacity", 0)
+        .remove();
 
 
     // Render the world by using the path generator & Bostock https://bl.ocks.org/mbostock/4060606
@@ -223,26 +230,26 @@ console.log(mapDataByID);
         .style("fill", function (d) {
             return quantize(findAspect(mapDataByID, d.id, aspect + "Score"));
         })
-       .on('mouseover', function(d) {
-            var mouse = d3.mouse(svg.node()).map(function(d) {
+        .on('mouseover', function (d) {
+            var mouse = d3.mouse(svg.node()).map(function (d) {
                 return parseInt(d);
             });
             tooltip.classed('hidden', false)
-            .attr('style', 'left:' + (mouse[0]) + 'px; top:' + (mouse[1]) + 'px')
-            .html("<b>" + mapDataByID[d.id].Country + "</b>" + "</br>" + 
-                  "Overall LPI Score: " + mapDataByID[d.id]['Overall LPI Score'] + "</br>" + 
-                  "Customs Score: " + mapDataByID[d.id]['CustomsScore'] + "</br>" + 
-                  "Infrastructure Score: " + mapDataByID[d.id]['InfrastructureScore'] + "</br>" + 
-                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
-                  "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" + 
-                  "Logistics Services Score: " + mapDataByID[d.id]['Logistics ServicesScore'] + "</br>" + 
-                  "Ease of Tracking Score " + mapDataByID[d.id]['Ease of TrackingScore'] + "</br>" + 
-                  "Timeliness Score: " + mapDataByID[d.id]['TimelinessScore']
-                  );
-            })
-        .on('mouseout', function() {
+                .attr('style', 'left:' + (mouse[0]) + 'px; top:' + (mouse[1]) + 'px')
+                .html("<b>" + mapDataByID[d.id].Country + "</b>" + "</br>" +
+                    "Overall LPI Score: " + mapDataByID[d.id]['Overall LPI Score'] + "</br>" +
+                    "Customs Score: " + mapDataByID[d.id]['CustomsScore'] + "</br>" +
+                    "Infrastructure Score: " + mapDataByID[d.id]['InfrastructureScore'] + "</br>" +
+                    "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" +
+                    "International Shipment Score: " + mapDataByID[d.id]['International ShipmentScore'] + "</br>" +
+                    "Logistics Services Score: " + mapDataByID[d.id]['Logistics ServicesScore'] + "</br>" +
+                    "Ease of Tracking Score " + mapDataByID[d.id]['Ease of TrackingScore'] + "</br>" +
+                    "Timeliness Score: " + mapDataByID[d.id]['TimelinessScore']
+                );
+        })
+        .on('mouseout', function () {
             tooltip.classed('hidden', true);
-            });
+        });
 
     worldMap.exit().remove();
 
@@ -281,6 +288,9 @@ function updateBarChart(dataset, year) {
             //console.log(d.Code);
             return x(d.CustomsScore);
         })
+        .attr("class", function (d) {
+            return d.Code + "Bar";
+        })
         .append("text")
         .attr("class", "bartext")
         .attr("text-anchor", "end")
@@ -317,6 +327,16 @@ function menuChanged() {
     var selectedValue = d3.event.target.value;
     //get the name of the selected option from the change event object
 
+    alert(selectedValue + "Bar") ; //remove this line when things are working!
+}
+
+function mapChanged() {
+    //the name isn't important, but has to match the name
+    //you added to the menu's "change" event listener.
+
+    var selectedValue = d3.event.target.value;
+    //get the name of the selected option from the change event object
+
     jsonOutside.features.forEach(function (d) {
         // loop through json data to match td entry
 
@@ -325,12 +345,13 @@ function menuChanged() {
             //name against the one you got from the event object
             //if they match, then:
 
-            alert(selectedValue)  //remove this line when things are working!
+            alert(selectedValue ) //remove this line when things are working!
 
             click(d); // pass json element that matches selected value to click
             //which will respond the same way as if you clicked the country on
             //the map.
-        };
+        }
+        ;
     })
 }
 
