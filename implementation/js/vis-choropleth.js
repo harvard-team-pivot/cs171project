@@ -40,8 +40,8 @@ var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
 var myAxes = {};
 var myAllData = [];
-var myAllArray = {};
-var radarData ;
+var myAllArray = [];
+var radarData;
 var aspect = "Overall_LPI";
 
 var quantize = d3.scale.quantize()
@@ -297,7 +297,7 @@ function updateBarChart(dataset, year) {
 }
 
 function findAspect(data, ID, aspect) {
-    console.log(aspect);
+    //console.log(aspect);
     if (typeof data[ID] === "undefined") {
         //console.log('the property is not available...'); // print into console
         return null;
@@ -310,7 +310,7 @@ function menuChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
-    var selectedValue = "rect."+d3.event.target.value + "Bar";
+    var selectedValue = "rect." + d3.event.target.value + "Bar";
     //get the name of the selected option from the change event object
 
     //console.log(selectedValue);
@@ -332,19 +332,19 @@ function menuChanged() {
         for (var key in radarData[i]) {
             if (radarData[i].hasOwnProperty(key)) {
                 //console.log(key);
-                myAllArray = $.map(radarData[i], function (value, index) {
-                    if ($.inArray(index, myAxes)==0) {
-                        console.log(value);
-                        return {value};
-                    }
-                });
+                if ($.inArray(key, myAxes) >= 0) {
+                    myAllArray = +radarData[i][key];
+                    //console.log(radarData[i][key]);
+                    //myAllArray = {myAllArray};
+                    myAllData.push(myAllArray);
+                }
             }
         }
-        myAllData.push(myAllArray);
+        //myAllData.push(myAllArray);
     }
 
 
-    //Call function to draw the Radar chart
+//Call function to draw the Radar chart
     RadarChart(".radarChart", myAllData, radarChartOptions);
 
 }
@@ -357,7 +357,6 @@ function mapChanged() {
     //get the name of the selected option from the change event object
 
 
-
     jsonOutside.features.forEach(function (d) {
         // loop through json data to match td entry
 
@@ -366,13 +365,12 @@ function mapChanged() {
             //name against the one you got from the event object
             //if they match, then:
 
-            alert(selectedValue ) //remove this line when things are working!
+            alert(selectedValue); //remove this line when things are working!
 
             click(d); // pass json element that matches selected value to click
             //which will respond the same way as if you clicked the country on
             //the map.
         }
-        ;
     })
 }
 
