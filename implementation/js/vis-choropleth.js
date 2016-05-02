@@ -37,6 +37,7 @@ var x = d3.scale.linear()
     .range([0, barWidth]);
 
 var raw2007, raw2010, raw2012, raw2014 = {};
+var selectedYear = 2007;
 var allData = [];
 var myAxes = {};
 var myAllData = [];
@@ -101,31 +102,34 @@ queue()
             .attr("name", "year-list");
 
         var yearOptions = yearDropDown.selectAll("option")
-            .data(yearDropdownData)
+            //.data(yearDropdownData)
+            .data(years)
             .enter()
             .append("option");
 
         yearOptions.text(function (d) {
-                return d.Year;
+                //return d.Year;
+                return d;
             })
             .attr("value", function (d) {
-                return d.Year;
+                //return d.Year;
+                return d;
             });
 
         yearDropDown.on("change", yearChanged);
 
         // Update
-        updateChoropleth(allData, 2014, world);
+        updateChoropleth(allData, selectedYear, world);
         $("#ranking-type").change(function () {
-            updateChoropleth(allData, 2014, world);
+            updateChoropleth(allData, selectedYear, world);
         });
-        updateBarChart(allData, 2014);
+        updateBarChart(allData, selectedYear);
 
         //nonsense I'm working on SK
         allData = allData.filter(function (i) {
             //alert ($(this).text());
             //return (i.Code == "BHR");
-            return (i.Year == 2007);
+            return (i.Year == selectedYear);
         });
 
         //myAxes=Object.keys(allData[0]);
@@ -316,8 +320,9 @@ function updateBarChart(dataset, year) {
         .html(function (d) {
             return "<h3>" + d.CustomsRank + "</h3><br>Height " + d.Country + "<br>City " + d.Rank + "<br>Country " + d.TimelinessRank + "<br>Floors " + d.TimelinessScore + "<br>Completed " + d.CustomsScore;
         });
+
     // Invoke tooltip
-    svgBar.call(tip)
+    svgBar.call(tip);
 
 }
 
@@ -377,25 +382,12 @@ function yearChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
-    var selectedValue = d3.event.target.value;
+    selectedYear = d3.event.target.value;
     //get the name of the selected option from the change event object
 
+    //updateChoropleth(allData, selectedYear, world);
+    updateBarChart(allData,selectedYear);
 
-    jsonOutside.features.forEach(function (d) {
-        // loop through json data to match td entry
-
-        if (selectedValue === d.properties.name) {
-            //for each data object in the features array (d), compare it's
-            //name against the one you got from the event object
-            //if they match, then:
-
-            alert(selectedValue); //remove this line when things are working!
-
-            click(d); // pass json element that matches selected value to click
-            //which will respond the same way as if you clicked the country on
-            //the map.
-        }
-    })
 }
 
 function mapChanged() {
@@ -421,4 +413,30 @@ function mapChanged() {
             //the map.
         }
     })
+}
+
+function animateMap() {
+
+    var timer;  // create timer object
+    d3.select('#play')
+        .on('click', function() {  // when user clicks the play button
+            if(playing == false) {  // if the map is currently playing
+                timer = setInterval(function(){   // set a JS interval
+                    if(currentAttribute < attributeArray.length-1) {
+                        currentAttribute +=1;  // increment the current attribute counter
+                    } else {
+                        currentAttribute = 0;  // or reset it to zero
+                    }
+                    sequenceMap();  // update the representation of the map
+                    d3.select('#clock').html(attributeArray[currentAttribute]);  // update the clock
+                }, 2000);
+
+                d3.select(this).html('stop');  // change the button label to stop
+                playing = true;   // change the status of the animation
+            } else {    // else if is currently playing
+                clearInterval(timer);   // stop the animation by clearing the interval
+                d3.select(this).html('play');   // change the button label to play
+                playing = false;   // change the status again
+            }
+        });
 }
