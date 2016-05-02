@@ -95,6 +95,10 @@ Really should have a way to link git commit history into this document.
 
 Starting to link viz's through menuChanged function.  Updated bar color on selection in country dropdown.  Indenting child checkboxes to highlight grouping.
 
+Worked on having filtered dataset show up on radar chart when country is selected.
+
+Adding year dropdown (to be replaced by animation widget) for roughing out updating all visualizations at once. 
+
 ## Data
 
 Obtained data from the [World Bank](http://lpi.worldbank.org/) logistics performance index.
@@ -115,7 +119,6 @@ Added choropleth map modeled after [here](https://bl.ocks.org/mbostock/4060606).
 
 Noticed json for world map codes used numeric country codes, whereas our data contained the ISO-ALPHA-3 code. Did a lookup to convert the alpha code to a numeric code, inserted a column in our data called "ID" to be used for the choropleth map.
 
-Updated todo.
 
 # TODO:
 
@@ -165,4 +168,4 @@ pass value of top score or number of countries for rank to
 
 variablize tool tip
 
-Do parent child selection of indicators 
+Do parent child selection of indicators

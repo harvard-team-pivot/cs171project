@@ -89,6 +89,31 @@ queue()
             allData = allData.concat(dataYears[i]);
         }
 
+        // year dropdown
+
+        var yearDropdownData = d3.nest()
+            .sortValues(function (a, b) {
+                return d3.descending(b["Year"], a["Year"]);
+            })
+            .entries(allData);
+
+        var yearDropDown = d3.select("#year_container").append("select")
+            .attr("name", "year-list");
+
+        var yearOptions = yearDropDown.selectAll("option")
+            .data(yearDropdownData)
+            .enter()
+            .append("option");
+
+        yearOptions.text(function (d) {
+                return d.Year;
+            })
+            .attr("value", function (d) {
+                return d.Year;
+            });
+
+        yearDropDown.on("change", yearChanged);
+
         // Update
         updateChoropleth(allData, 2014, world);
         $("#ranking-type").change(function () {
@@ -348,7 +373,7 @@ function menuChanged() {
 
 }
 
-function mapChanged() {
+function yearChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
@@ -373,3 +398,27 @@ function mapChanged() {
     })
 }
 
+function mapChanged() {
+    //the name isn't important, but has to match the name
+    //you added to the menu's "change" event listener.
+
+    var selectedValue = d3.event.target.value;
+    //get the name of the selected option from the change event object
+
+
+    jsonOutside.features.forEach(function (d) {
+        // loop through json data to match td entry
+
+        if (selectedValue === d.properties.name) {
+            //for each data object in the features array (d), compare it's
+            //name against the one you got from the event object
+            //if they match, then:
+
+            alert(selectedValue); //remove this line when things are working!
+
+            click(d); // pass json element that matches selected value to click
+            //which will respond the same way as if you clicked the country on
+            //the map.
+        }
+    })
+}
