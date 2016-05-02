@@ -40,7 +40,7 @@ var raw2007, raw2010, raw2012, raw2014 = {};
 var allData = [];
 var myAxes = {};
 var myAllData = [];
-var myAllArray = [];
+var myAllArray = {};
 var radarData;
 var aspect = "Overall_LPI";
 
@@ -331,16 +331,15 @@ function menuChanged() {
     for (var i in radarData) {
         for (var key in radarData[i]) {
             if (radarData[i].hasOwnProperty(key)) {
-                //console.log(key);
-                if ($.inArray(key, myAxes) >= 0) {
-                    myAllArray = +radarData[i][key];
-                    //console.log(radarData[i][key]);
-                    //myAllArray = {myAllArray};
-                    myAllData.push(myAllArray);
-                }
+
+                myAllArray = $.map(radarData[i], function (value, index) {
+                    if ($.inArray(index, myAxes) >= 0) {
+                        return {value};
+                    }
+                });
             }
         }
-        //myAllData.push(myAllArray);
+        myAllData.push(myAllArray);
     }
 
 
