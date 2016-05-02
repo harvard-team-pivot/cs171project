@@ -38,7 +38,8 @@ var x = d3.scale.linear()
 
 var raw2007, raw2010, raw2012, raw2014 = {};
 var selectedYear = 2007;
-var allData = [];
+var allData =[];
+var yearData = [];
 var myAxes = {};
 var myAllData = [];
 var myAllArray = {};
@@ -123,14 +124,15 @@ queue()
         $("#ranking-type").change(function () {
             updateChoropleth(allData, selectedYear, world);
         });
-        updateBarChart(allData, selectedYear);
 
         //nonsense I'm working on SK
-        allData = allData.filter(function (i) {
+        yearData = allData.filter(function (i) {
             //alert ($(this).text());
             //return (i.Code == "BHR");
             return (i.Year == selectedYear);
         });
+
+        updateBarChart(yearData, selectedYear);
 
         //myAxes=Object.keys(allData[0]);
         //variable this so you can use score or rank
@@ -163,7 +165,7 @@ queue()
             .sortValues(function (a, b) {
                 return d3.descending(b["Country"], a["Country"]);
             })
-            .entries(allData);
+            .entries(yearData);
 
         var dropDown = d3.select("#table_container").append("select")
             .attr("name", "country-list");
@@ -286,9 +288,14 @@ function updateBarChart(dataset, year) {
 
     //console.log(chartData);
 
-    svgBar.selectAll("rect")
-        .data(chartData)
-        .enter()
+    var myBar = svgBar.selectAll("rect")
+        .data(chartData);
+    myBar.exit()
+        .transition()
+        .duration(300)
+        .remove();
+
+    myBar.enter()
         .append("rect")
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
@@ -324,6 +331,10 @@ function updateBarChart(dataset, year) {
     // Invoke tooltip
     svgBar.call(tip);
 
+    myBar.transition().duration(300);
+
+
+
 }
 
 function findAspect(data, ID, aspect) {
@@ -352,7 +363,7 @@ function menuChanged() {
     //radar chart filtering
     //console.log(d3.event.target.value)
 
-    radarData = allData.filter(function (d) {
+    radarData = yearData.filter(function (d) {
         return d.Code == d3.event.target.value;
     });
 
@@ -383,10 +394,14 @@ function yearChanged() {
     //you added to the menu's "change" event listener.
 
     selectedYear = d3.event.target.value;
-    //get the name of the selected option from the change event object
+    //console.log(selectedYear);
+
+    yearData = allData.filter(function (i) {
+        return (i.Year == selectedYear);
+    });
 
     //updateChoropleth(allData, selectedYear, world);
-    updateBarChart(allData,selectedYear);
+    updateBarChart(yearData,selectedYear);
 
 }
 
