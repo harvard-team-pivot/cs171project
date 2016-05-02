@@ -41,6 +41,7 @@ var allData = [];
 var myAxes = {};
 var myAllData = [];
 var myAllArray = {};
+var radarData ;
 var aspect = "Overall_LPI";
 
 var quantize = d3.scale.quantize()
@@ -88,12 +89,6 @@ queue()
             allData = allData.concat(dataYears[i]);
         }
 
-        //myAxes=Object.keys(allData[0]);
-        //variable this so you can use score or rank
-        myAxes = Object.keys(allData[0]).filter(function (v) {
-            return v.match(/Score/g);
-        });
-
         // Update
         updateChoropleth(allData, 2014, world);
         $("#ranking-type").change(function () {
@@ -102,32 +97,23 @@ queue()
         updateBarChart(allData, 2014);
 
         //nonsense I'm working on SK
-        var radarData = allData.filter(function (i) {
+        allData = allData.filter(function (i) {
             //alert ($(this).text());
-            //return (i.building == $(this).text());
+            //return (i.Code == "BHR");
             return (i.Year == 2007);
+        });
+
+        //myAxes=Object.keys(allData[0]);
+        //variable this so you can use score or rank
+        myAxes = Object.keys(allData[0]).filter(function (v) {
+            return v.match(/Score/g);
         });
 
         //radarData.sort(function(a,b) {return a.Country-b.Country;});
 
-        console.log(radarData);
+        //console.log(radarData);
 
-        for (var i in radarData) {
-            for (var key in radarData[i]) {
-                if (radarData[i].hasOwnProperty(key)) {
-                    myAllArray = $.map(radarData[i], function (value, index) {
-                        if (value in myAxes) {
-                            return {value};
-                        }
-                    });
-                }
-            }
-            myAllData.push(myAllArray);
-        }
-
-        //Call function to draw the Radar chart
-        RadarChart(".radarChart", myAllData, radarChartOptions);
-
+// innovative folded chart
         folded = new OriDomi('#chart-area', {
             //vPanels: [10, 10, 10, 70] ,
             vPanels: 6,     // number of panels when folding left or right (vertically oriented)
@@ -148,7 +134,7 @@ queue()
             .sortValues(function (a, b) {
                 return d3.descending(b["Country"], a["Country"]);
             })
-            .entries(radarData);
+            .entries(allData);
 
         var dropDown = d3.select("#table_container").append("select")
             .attr("name", "country-list");
@@ -180,7 +166,7 @@ function updateChoropleth(dataset, year, world) {
         mapDataByID[mapData[i].ID] = mapData[i];
     }
 
-    console.log(mapDataByID);
+    //console.log(mapDataByID);
 
     // --> Choropleth implementation
     var selectBox1 = document.getElementById("ranking-type");
@@ -327,11 +313,39 @@ function menuChanged() {
     var selectedValue = "rect."+d3.event.target.value + "Bar";
     //get the name of the selected option from the change event object
 
-    console.log(selectedValue) ;
+    //console.log(selectedValue);
 
     //reset bars then change color of selected
     d3.selectAll("rect").style("fill", "grey");
     d3.selectAll(selectedValue).style("fill", "purple");
+
+    //radar chart filtering
+    //console.log(d3.event.target.value)
+
+    radarData = allData.filter(function (d) {
+        return d.Code == d3.event.target.value;
+    });
+
+    //console.log(radarData);
+
+    for (var i in radarData) {
+        for (var key in radarData[i]) {
+            if (radarData[i].hasOwnProperty(key)) {
+                //console.log(key);
+                myAllArray = $.map(radarData[i], function (value, index) {
+                    if ($.inArray(index, myAxes)==0) {
+                        console.log(value);
+                        return {value};
+                    }
+                });
+            }
+        }
+        myAllData.push(myAllArray);
+    }
+
+
+    //Call function to draw the Radar chart
+    RadarChart(".radarChart", myAllData, radarChartOptions);
 
 }
 

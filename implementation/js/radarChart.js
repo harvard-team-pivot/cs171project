@@ -158,7 +158,7 @@ function RadarChart(id, data, options) {
 
     //Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
-        .data(myData)
+        .data(data)
         .enter().append("g")
         .attr("class", "radarWrapper");
 
