@@ -60,30 +60,6 @@ var legend = d3.select('#legend')
 
 var folded;
 
-// slider
-$(function() {
-    var yearArr=[2007, 2010, 2012, 2014];
-    // Create a new jQuery UI Slider element
-    // and set some default parameters.
-    $( "#slider" ).slider({
-        range: "min",
-        value: 0,
-        min: 0,
-        max: 3,
-        slide: function( event, ui ) {
-
-            // While sliding, update the value in the #amount div element
-            $("#amount").html(yearArr[ui.value]);
-
-        }
-    });
-
-    // Set the initial slider amount in the #amount div element
-    var value = $( "#slider" ).slider( "value" );
-    $( "#amount" ).html(yearArr[0]);
-
-});
-
 // Initialize tooltip
 // Variablize
 var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
@@ -416,7 +392,6 @@ function yearChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
-    selectedYear = d3.event.target.value;
     //console.log(selectedYear);
 
     yearData = allData.filter(function (i) {
@@ -425,7 +400,7 @@ function yearChanged() {
 
     //updateChoropleth(allData, selectedYear, world);
     updateBarChart(yearData, selectedYear);
-    menuChanged();
+    //menuChanged();
 
 }
 
@@ -479,3 +454,29 @@ function animateMap() {
             }
         });
 }
+
+// slider
+$(function () {
+    var yearArr = [2007, 2010, 2012, 2014];
+    // Create a new jQuery UI Slider element
+    // and set some default parameters.
+    $("#slider").slider({
+        range: "min",
+        value: 0,
+        min: 0,
+        max: 3,
+        slide: function (event, ui) {
+
+            // While sliding, update the value in the #amount div element
+            $("#amount").html(yearArr[ui.value]);
+        },
+        stop: function( event, ui ) {selectedYear=yearArr[ui.value];yearChanged.call();}
+    });
+
+    // Set the initial slider amount in the #amount div element
+    var value = $("#slider").slider("value");
+    $("#amount").html(yearArr[0]);
+    //$("#slider").on( "slidechange", function( event, ui ) {} );
+    //$("#slider").on("change", yearChanged);
+
+});
