@@ -1,4 +1,4 @@
-# Where's my Widget?
+# [Where's my Widget?](http://harvard-team-pivot.github.io/cs171project/)
 
 
 Final Project collaboration site
