@@ -62,25 +62,25 @@ var folded;
 
 // slider
 $(function() {
-
+    var yearArr=[2007, 2010, 2012, 2014];
     // Create a new jQuery UI Slider element
     // and set some default parameters.
     $( "#slider" ).slider({
         range: "min",
-        value: 2007,
-        min: 2007,
-        max: 2014,
+        value: 0,
+        min: 0,
+        max: 3,
         slide: function( event, ui ) {
 
             // While sliding, update the value in the #amount div element
-            $( "#amount" ).html( ui.value );
+            $("#amount").html(yearArr[ui.value]);
 
         }
     });
 
     // Set the initial slider amount in the #amount div element
     var value = $( "#slider" ).slider( "value" );
-    $( "#amount" ).html( value );
+    $( "#amount" ).html(yearArr[0]);
 
 });
 
