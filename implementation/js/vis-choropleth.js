@@ -350,7 +350,10 @@ function menuChanged() {
     //the name isn't important, but has to match the name
     //you added to the menu's "change" event listener.
 
-    var selectedValue = "rect." + d3.event.target.value + "Bar";
+    //var selectedValue = "rect." + d3.event.target.value + "Bar";
+    var optionVal = $("#table_container select option:selected").val();
+    var selectedValue = "rect." +   optionVal + "Bar";
+
     //get the name of the selected option from the change event object
 
     //console.log(selectedValue);
@@ -363,7 +366,7 @@ function menuChanged() {
     //console.log(d3.event.target.value)
 
     radarData = yearData.filter(function (d) {
-        return d.Code == d3.event.target.value;
+        return d.Code == optionVal;
     });
 
     //console.log(radarData);
@@ -400,7 +403,7 @@ function yearChanged() {
 
     //updateChoropleth(allData, selectedYear, world);
     updateBarChart(yearData, selectedYear);
-    //menuChanged();
+    menuChanged();
 
 }
 

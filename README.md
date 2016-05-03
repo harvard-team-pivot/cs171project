@@ -97,7 +97,13 @@ Starting to link viz's through menuChanged function.  Updated bar color on selec
 
 Worked on having filtered dataset show up on radar chart when country is selected.
 
-Adding year dropdown (to be replaced by animation widget) for roughing out updating all visualizations at once. 
+Adding year dropdown (to be replaced by animation widget) for roughing out updating all visualizations at once.  Adding animate function for map.
+
+Using slider to replace dropdown.  Removed dropdown and added function on _stop_ for slider.
+
+Formatted radio and checkboxes so they're aligned with labels.
+
+Linked selected country to slider and radar simultaneously.  Ideally this should have been done on the map.
 
 ## Data
 
@@ -169,3 +175,5 @@ pass value of top score or number of countries for rank to
 variablize tool tip
 
 Do parent child selection of indicators
+
+Just do unique values for years.
