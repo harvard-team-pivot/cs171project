@@ -55,12 +55,27 @@ var testData = {//test
     "Overall LPI Score": 3.19
 };
 
+
+
+//var myData = [];
+//var myArray = {};
+//for (var key in testData) {
+//    if (testData.hasOwnProperty(key)) {
+//        myArray = $.map(testData, function (value, index) {
+//            return {value};
+//        });
+//    }
+//}
+//myData.push(myArray);
+//console.log(myArray);
+
+
 //var myAxes=Object.keys(allData[0]);
 var myValues=testData["CustomsScore"].valueOf();
 //var allAxis = (testData[0].map(function(k, v){return v}));
-//////////////////////////////////////////////////////////////
-//////////////////// Draw the Chart //////////////////////////
-//////////////////////////////////////////////////////////////
+//console.log(myValues);
+
+// Draw the radar chart
 
 var color = d3.scale.ordinal()
     .range(["#EDC951","#CC333F","#00A0B0"]);
@@ -74,15 +89,4 @@ var radarChartOptions = {
     roundStrokes: true,
     color: color
 };
-
-var myData = [];
-var myArray = {};
-for (var key in testData) {
-    if (testData.hasOwnProperty(key)) {
-        myArray = $.map(testData, function (value, index) {
-            return {value};
-        });
-    }
-}
-myData.push(myArray);
 

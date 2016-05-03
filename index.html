@@ -9,31 +9,40 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
 </head>
-<div class="container" >
-    <h1>Where's my Widget</h1>
+<div class="container">
+    <h1>Where's my Widget?</h1>
     <div class="row">
 
         <div class="col-md-2 pull-left">
             <div id="table_container" class="csvTable"></div>
-            <div class="form-group">
-                <label class="checkbox"><input type="checkbox" checked="true" ng-model="radar.config.showAxesLabels"
-                                               class="ng-pristine ng-untouched ng-valid"><span
-                        class="text-primary">All</span></label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet"
-                                               class="ng-pristine ng-untouched ng-valid">Overall</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels"
-                                               class="ng-pristine ng-untouched ng-valid">Customs</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxes"
-                                               class="ng-pristine ng-untouched ng-valid">Infrastructure</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showVertices"
-                                               class="ng-pristine ng-untouched ng-valid">Infrastructure</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showPolygons"
-                                               class="ng-pristine ng-untouched ng-valid">Logistics Competence</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLegend"
-                                               class="ng-pristine ng-untouched ng-valid">Tracking &amp; tracing</label>
-                <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevelsLabels"
-                                               class="ng-pristine ng-untouched ng-valid">Timeliness</label>
+            <div >
+                <label class="checkbox"><input type="checkbox" checked="true" class="checkbox-parent">
+                    <span class="text-primary">All</span>
+                </label>
+                <!--Need to indent and de-bold this-->
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Overall
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Customs
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Infrastructure
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Infrastructure
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Logistics Competence
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Tracking &amp; tracing
+                </label>
+                <label class="radio">
+                    <input type="radio" class="checkbox-child">Timeliness
+                </label>
             </div>
             <div class="radarChart"></div>
         </div>
@@ -51,15 +60,16 @@
                         <option value="Timeliness">Timeliness Score</option>
                     </select>
                     <div id="legend"></div>
-
-                    <!-- Activity IV -->
-                    <!--<button type="button" class="btn btn-link" id="change-sorting"><i class="glyphicon glyphicon-sort"></i> Sort</button>-->
                 </div>
             </form>
 
             <div id="chart-area"></div>
         </div>
         <div class="col-md-2 pull-right">
+            <div id="slider"></div>
+            <div id="amount" style="color:#777;font-size:12px;text-align:center;"></div>
+            <!--<div id="year_container" class="csvTable"></div>-->
+            <div>Larger is better</div>
             <div id="ranking-area"></div>
         </div>
     </div>
@@ -81,6 +91,7 @@
 <script src="js/d3.geo.projection.min.js"></script>
 
 <!--<script src="js/colorbrewer.min.js"></script>-->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!-- Choropleth and second visualization -->
 <script src="js/vis-choropleth.js"></script>

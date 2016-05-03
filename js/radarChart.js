@@ -5,7 +5,7 @@
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
 
-function RadarChart(id, data, options) {
+function RadarChart(id, chartData, options) {
     var cfg = {
         w: 600,				//Width of the circle
         h: 600,				//Height of the circle
@@ -155,10 +155,10 @@ function RadarChart(id, data, options) {
     if(cfg.roundStrokes) {
         radarLine.interpolate("cardinal-closed");
     }
-
+    //console.log(chartData);
     //Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
-        .data(myData)
+        .data(chartData)
         .enter().append("g")
         .attr("class", "radarWrapper");
 
