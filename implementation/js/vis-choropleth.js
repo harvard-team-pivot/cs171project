@@ -60,6 +60,10 @@ var legend = d3.select('#legend')
 
 var folded;
 
+// slider
+var slider = d3.slider().min(2007).max(2014).tickValues([2007, 2010, 2012, 2014]).stepValues([2007, 2010, 2012, 2014]).showRange(true).value(4);
+d3.select('#slider').call(slider);
+
 // Initialize tooltip
 // Variablize
 var tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
